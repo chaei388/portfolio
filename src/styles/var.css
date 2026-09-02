@@ -1,0 +1,42 @@
+:root {
+  /* Color */
+  --blue-50: #f0f5ff;
+  --blue-100: #e3ecff;
+  --blue-300: #b0cbff;
+  --blue-500: #7da9ff;
+  --blue-700: #4f76c4;
+  --blue-900: #264585;
+
+  --yellow-50: #fff9e2;
+  --yellow-200: #ffea95;
+  --yellow-500: #f9cd1d;
+
+  --gray-0: #fcfdff;
+  --gray-100: #edeff3;
+  --gray-300: #c7cbdb;
+  --gray-500: #888c9d;
+  --gray-700: #51535e;
+  --gray-900: #14161b;
+
+  /* Font */
+  --font-paperlogy: 'Paperlogy', sans-serif;
+  --font-pretendard: 'Pretendard', sans-serif;
+
+  /* Typography */
+  --font-logo: 800 24px/1.2 var(--font-paperlogy);
+  --font-display: 800 52px/1.2 var(--font-paperlogy);
+  --font-h1: 700 32px/1.4 var(--font-paperlogy);
+  --font-h2: 700 24px/1.4 var(--font-paperlogy);
+  --font-h3: 700 20px/1.4 var(--font-paperlogy);
+
+  --font-body1: 500 18px/1.6 var(--font-pretendard);
+  --font-body2: 500 16px/1.6 var(--font-pretendard);
+  --font-body3: 400 16px/1.6 var(--font-pretendard);
+  --font-small: 400 14px/1.5 var(--font-pretendard);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+}
