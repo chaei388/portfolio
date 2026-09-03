@@ -3,8 +3,20 @@ import { useEffect, useState } from 'react'
 /* 화면 중앙 근처에 들어온 Home 섹션의 id를 반환하는 훅
 Navigation에서 현재 위치한 메뉴를 표시하기 위해 사용 */
 export function useActiveSection(sectionIds: string[]) {
-  // 첫 화면에서는 첫 번째 섹션인 About을 기본 active로 표시
-  const [activeSectionId, setActiveSectionId] = useState(sectionIds[0] ?? '')
+  // 초기 활성 섹션 id
+  // ex. /#skills로 바로 들어온 경우 Skills 메뉴가 먼저 active 되도록 hash 값을 확인
+  const getInitialSectionId = () => {
+    const hashSectionId = window.location.hash.replace('#', '')
+
+    if (sectionIds.includes(hashSectionId)) {
+      return hashSectionId
+    }
+
+    return sectionIds[0] ?? ''
+  }
+
+  // 첫 화면에서는 URL hash가 있으면 해당 섹션, 없으면 첫 번째 섹션인 About을 기본 active로 표시
+  const [activeSectionId, setActiveSectionId] = useState(getInitialSectionId)
 
   useEffect(() => {
     // 감시할 섹션 id가 없으면 observer 안 만듦
