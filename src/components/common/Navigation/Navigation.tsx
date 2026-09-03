@@ -1,11 +1,4 @@
-const navigationItems = [
-  { href: '/#about', label: 'About' },
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#skills', label: 'Skills' },
-  { href: '/#projects', label: 'Projects' },
-  { href: '/#contact', label: 'Contact' },
-  { href: '/archive', label: 'Archive' },
-]
+import { navigationItems } from '../../../data/navigation'
 
 function Navigation() {
   return (
