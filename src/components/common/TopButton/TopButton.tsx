@@ -1,4 +1,4 @@
-import arrowIcon from '../../../assets/icons/Arrow.svg'
+import arrowIcon from '../../../assets/icons/arrow.svg'
 
 function TopButton() {
   const handleClick = () => {
