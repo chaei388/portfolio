@@ -1,7 +1,11 @@
 function Projects() {
   return (
     <>
-      <section id="projects"></section>
+      <section id="projects">
+        <div className="container">
+          <p>Projects</p>
+        </div>
+      </section>
     </>
   )
 }
