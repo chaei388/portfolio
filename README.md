@@ -37,6 +37,10 @@ One Page Portfolio + Archive Pages
 ## 폴더 구조
 
 ```txt
+public/
+├── favicon.svg
+└── fonts/                             # Paperlogy, Pretendard 폰트
+
 src/
 ├── assets/
 │   ├── images/                         # 프로젝트 스크린샷 등 이미지
@@ -93,10 +97,11 @@ src/
 │           └── ArchiveWrite.module.css
 │
 ├── data/                               # 정적 데이터
-│   ├── skills.ts
-│   ├── experience.ts
-│   ├── projects.ts
-│   └── navigation.ts
+│   ├── about.ts                        # About 프로필 데이터
+│   ├── skills.ts                       # Skills 기술 스택 데이터
+│   ├── experience.ts                   # Experience 경험 데이터
+│   ├── projects.ts                     # Projects 프로젝트 데이터
+│   └── navigation.ts                   # Header Navigation 메뉴 데이터
 │
 ├── hooks/                              # 커스텀 훅
 │   ├── useActiveSection.ts
