@@ -1,0 +1,31 @@
+.header {
+  position: sticky;
+  top: 0; /* top: 0이면 화면 맨 위에 닿는 순간부터 고정 */
+
+  /* z-index: 겹치는 요소의 앞뒤 순서 → Header가 본문 섹션 위에 보이도록 설정 */
+  z-index: 10;
+
+  background: var(--gray-0);
+}
+
+/* .container의 1200px 폭 안에서 로고와 메뉴를 좌우로 배치 */
+.inner {
+  display: flex; /* 가로방향으로 나란히*/
+  align-items: center; /* 세로축 가운데 정렬 */
+  justify-content: space-between; /* 양끝 배치 */
+
+  /* Header 고정 높이 */
+  height: 4.5rem;
+}
+
+.logo {
+  font: var(--font-logo);
+  color: var(--gray-900);
+}
+
+/* (마우스 말고 키보드로 이동 시 ex. Tab키 이동)
+키보드 포커스가 메뉴에 있을 때 위치를 알아볼 수 있게 표시 */
+.logo:focus-visible {
+  outline: 2px solid var(--blue-700);
+  outline-offset: 0.25rem;
+}

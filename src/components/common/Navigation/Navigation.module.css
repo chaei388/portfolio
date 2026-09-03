@@ -1,0 +1,64 @@
+.navigation {
+  display: flex; /* 가로방향으로 나란히*/
+  align-items: center; /* 세로축 가운데 정렬 */
+
+  /* 기본 메뉴 묶음과 Archive 사이 간격 */
+  gap: 4.5rem;
+}
+
+/* 기본 메뉴 묶음 */
+.menuList {
+  display: flex; /* 가로방향으로 나란히*/
+  align-items: flex-end; /* 아래쪽 라인 기준 정렬 */
+
+  /* 기본 메뉴들 사이 간격 */
+  gap: 2rem;
+}
+
+/* 차별화 기능 메뉴 묶음: Archive */
+.featuredList {
+  display: flex; /* 가로방향으로 나란히*/
+  align-items: center; /* 세로축 가운데 정렬 */
+}
+
+.link {
+  /* inline-block: 글자처럼 한 줄에 놓이면서 padding/background 크기 조절 가능 */
+  display: inline-block;
+
+  /* 형광펜 영역이 글자보다 좌우로 조금 더 길어 보이도록 여백 추가 */
+  padding: 0 0.25rem;
+
+  font: var(--font-nav);
+
+  color: var(--gray-900);
+
+  white-space: nowrap; /* 줄바꿈 X */
+
+  /* hover/active 변화 짧게 애니메이션 처리 */
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.featuredLink {
+  font: var(--font-nav-strong);
+}
+
+.link:hover, .active {
+  color: var(--blue-700);
+}
+
+.active {
+  /* linear-gradient: 배경색을 방향에 따라 나누어 칠하는 속성
+    아래쪽 55%는 노란색, 위쪽 45%는 투명하게 두어 형광펜처럼 보이게 함  */
+  background: linear-gradient(
+    to top,
+    var(--yellow-200) 0 55%,
+    transparent 55% 100%
+  );
+}
+
+/* (마우스 말고 키보드로 이동 시 ex. Tab키 이동)
+키보드 포커스가 메뉴에 있을 때 위치를 알아볼 수 있게 표시 */
+.link:focus-visible {
+  outline: 2px solid var(--blue-700);
+  outline-offset: 0.25rem;
+}
