@@ -1,11 +1,17 @@
-import type { NavigationItem } from '../types'
+import type { PageNavigationItem, SectionNavigationItem } from '../types'
 
-// 헤더 네비게이션 항목
-export const navigationItems: NavigationItem[] = [
-  { href: '/#about', label: 'About' },
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#skills', label: 'Skills' },
-  { href: '/#projects', label: 'Projects' },
-  { href: '/#contact', label: 'Contact' },
-  { href: '/archive', label: 'Archive', isFeatured: true },
+// 기본 메뉴
+// id 값은 각 섹션의 <section id="..."> 값과 같아야 함
+export const sectionNavigationItems: SectionNavigationItem[] = [
+  { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
 ]
+
+// Archive는 Home 내부 섹션이 아니라 별도 페이지이므로 path로 관리
+export const archiveNavigationItem: PageNavigationItem = {
+  path: '/archive',
+  label: 'Archive',
+}
