@@ -23,16 +23,18 @@
   --font-pretendard: 'Pretendard', sans-serif;
 
   /* Typography */
-  --font-logo: 800 24px/1.2 var(--font-paperlogy);
-  --font-display: 800 52px/1.2 var(--font-paperlogy);
-  --font-h1: 700 32px/1.4 var(--font-paperlogy);
-  --font-h2: 700 24px/1.4 var(--font-paperlogy);
-  --font-h3: 700 20px/1.4 var(--font-paperlogy);
+  --font-logo: 800 1.5rem/1.2 var(--font-paperlogy);
+  --font-display: 800 3.25rem/1.2 var(--font-paperlogy);
+  --font-h1: 700 2rem/1.4 var(--font-paperlogy);
+  --font-h2: 700 1.5rem/1.4 var(--font-paperlogy);
+  --font-h3: 700 1.25rem/1.4 var(--font-paperlogy);
+  --font-nav: 500 1.25rem/1.4 var(--font-paperlogy);
+  --font-nav-strong: 700 1.25rem/1.4 var(--font-paperlogy);
 
-  --font-body1: 500 18px/1.6 var(--font-pretendard);
-  --font-body2: 500 16px/1.6 var(--font-pretendard);
-  --font-body3: 400 16px/1.6 var(--font-pretendard);
-  --font-small: 400 14px/1.5 var(--font-pretendard);
+  --font-body1: 500 1.125rem/1.6 var(--font-pretendard);
+  --font-body2: 500 1rem/1.6 var(--font-pretendard);
+  --font-body3: 400 1rem/1.6 var(--font-pretendard);
+  --font-small: 400 0.875rem/1.5 var(--font-pretendard);
 
   /* Radius */
   --radius-sm: 8px;
