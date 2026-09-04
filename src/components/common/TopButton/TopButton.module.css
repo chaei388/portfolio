@@ -1,0 +1,36 @@
+.button {
+  position: fixed;   /* 스크롤해도 브라우저 창 기준 같은 위치에 고정 (플로팅버튼)*/
+
+  /* 오른쪽 아래에서 각각 2rem만큼 떨어진 위치 */
+  right: 2rem;
+  bottom: 2rem;
+
+  /* 다른 컨텐츠보다 위에 보이도록 쌓임 순서 높게 설정 */
+  z-index: 20;
+
+  width: 3.5rem; /* 56px */
+  height: 3.5rem; /* 56px */
+
+  display: flex;   /* 버튼 내부 화살표 이미지 가운데 배치 */
+
+  justify-content: center;  /* flex 가로방향 - 자식 요소 가운데 정렬 */
+  align-items: center;   /* flex 세로 방향 - 자식 요소 가운데 정렬 */
+
+  background-color: var(--gray-0);
+  border: 1px solid var(--gray-100);
+
+  border-radius: var(--radius-pill);
+
+  /* filter: 요소 전체에 시각 효과 입히는 CSS 속성
+  drop-shadow: 요소 실제 모양 따라 그림자 만들기 (box-shadow는 사각형 모양대로...)*/
+  filter: drop-shadow(0 4px 4px rgb(0 0 0 / 25%));
+}
+
+.icon {
+  width: 1.5rem; /* 24px */
+  height: 1.5rem; /* 24px */
+
+  /* img 태그 inline(기본. 한 줄 차지, 하단여백 포함) 
+  → block(박스처럼 한 칸 차지, 여백 없음) 변경 */
+  display: block;
+}

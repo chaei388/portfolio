@@ -1,4 +1,5 @@
 import arrowIcon from '../../../assets/icons/arrow.svg'
+import styles from './TopButton.module.css'
 
 function TopButton() {
   const handleClick = () => {
@@ -9,8 +10,13 @@ function TopButton() {
   }
 
   return (
-    <button type="button" aria-label="맨 위로 이동" onClick={handleClick}>
-      <img src={arrowIcon} alt="" />
+    <button
+      type="button"
+      className={styles.button}
+      aria-label="맨 위로 이동"
+      onClick={handleClick}
+    >
+      <img className={styles.icon} src={arrowIcon} alt="" />
     </button>
   )
 }
