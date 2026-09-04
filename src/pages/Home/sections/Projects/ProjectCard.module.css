@@ -16,11 +16,6 @@
 
 /* 카드 왼쪽 영역 (이미지) */
 .media {
-  /* 이미지 중앙정렬 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   min-height: 12rem; /* 192px */
   overflow: hidden;
 

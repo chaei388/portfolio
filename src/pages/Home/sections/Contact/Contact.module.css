@@ -3,9 +3,6 @@
 
   /* index에서 설정한 위아래 각각 6rem(96px) 전역 여백 스타일 덮어쓰기 */
   padding: 4rem 0 1.5rem; /* 64px 0 24px */
-
-  display: flex;
-  align-items: flex-end;  /* 아래쪽 정렬 → 하단 Footer와 인접하게 만들기 */
 }
 
 .inner {
