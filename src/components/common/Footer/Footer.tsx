@@ -5,8 +5,8 @@ function Footer() {
     <>
       <footer className={styles.footer}>
         <div className={`container ${styles.inner}`}>
-          <p>Copyright &copy; 2026 Chaei.</p>
-          <p>All rights reserved. Built with React, TypeScript, and CSS Modules.</p>
+          <p>Copyright &copy; 2026 Chaei. All rights reserved.</p>
+          <p>Built with React, TypeScript, and CSS Modules.</p>
         </div>
       </footer>
     </>
