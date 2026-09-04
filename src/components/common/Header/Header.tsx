@@ -14,9 +14,10 @@ function Header() {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
-        {/* 로고(글씨) */}
+        {/* 로고: favicon 이미지와 Portfolio 텍스트를 하나의 링크로 사용 */}
         <Link to="/" className={styles.logo} onClick={handleLogoClick}>
-          Portfolio
+          <img src="/favicon.svg" alt="" className={styles.logoIcon} />
+          <span>Portfolio</span>
         </Link>
 
         {/* 메인 네비게이션 */}
