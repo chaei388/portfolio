@@ -1,0 +1,53 @@
+.contact {
+  min-height: auto; /* 가진 내용만큼만 높이 가지기 (index 전역 최소 높이 덮어씀) */
+
+  /* index에서 설정한 위아래 각각 6rem(96px) 전역 여백 스타일 덮어쓰기 */
+  padding: 4rem 0 1.5rem; /* 64px 0 24px */
+
+  display: flex;
+  align-items: flex-end;  /* 아래쪽 정렬 → 하단 Footer와 인접하게 만들기 */
+}
+
+.inner {
+  display: flex;
+  align-items: flex-end; /* 텍스트/아이콘 묶음 아래선 맞춤 */
+  justify-content: space-between; /* 왼쪽 텍스트, 오른쪽 아이콘 양끝 배치 */
+  gap: 2rem; /* 32px */
+}
+
+
+.textLinks, .iconLinks {
+  display: flex;
+}
+
+
+.textLinks {
+  gap: 3rem; /* 48px */
+}
+
+.iconLinks {
+  gap: 1.5rem; /* 24px */
+}
+
+
+.textLink {
+  font: var(--font-h3);
+  color: var(--gray-900);
+}
+
+.iconLink {
+  display: inline-flex;
+  align-items: flex-end; /* 아이콘 이미지가 버튼 안에서 아래쪽 기준으로 보이도록 정렬 */
+  justify-content: center;
+
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+}
+
+
+.icon {
+  width: 2rem; /* 32px */
+  height: 2rem; /* 32px */
+
+  display: block;
+}
