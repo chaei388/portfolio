@@ -1,0 +1,13 @@
+.footer {
+  padding: 2rem 0; /* 32px */
+
+  font: var(--font-small);
+  color: var(--gray-500);
+  text-align: left; /* 왼쪽 정렬 */
+}
+
+/* 인접 형제 선택자: A + B = A 바로 다음에 오는 B 선택
+두 번째 문단부터 간격 주는 용도 */
+.footer p + p {
+  margin-top: 0.25rem; /* 4px */
+}
