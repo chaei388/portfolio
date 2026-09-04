@@ -109,8 +109,7 @@ src/
 │   └── navigation.ts                       # Header Navigation - 메뉴 데이터
 │
 ├── hooks/                                  # 커스텀 훅
-│   ├── useActiveSection.ts
-│   └── useScrollTo.ts
+│   └── useActiveSection.ts                 # 현재 화면 기준 active 섹션 계산
 │
 ├── lib/                                    # 외부 서비스 클라이언트
 │   └── supabaseClient.ts
