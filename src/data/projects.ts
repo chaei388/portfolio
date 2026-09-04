@@ -3,6 +3,21 @@ import type { Project } from '../types'
 // 프로젝트 카드 정적 데이터
 export const projects: Project[] = [
   {
+    id: 'watermelon-ai-service',
+    title: '수박의정석',
+    summary: '수박 구매 의사결정을 돕는 AI 이미지 분류 서비스',
+    period: '2026.06',
+    role: '기획/디자인, 서비스 구축/배포, AI 모델 구축 및 연동',
+    stacks: ['Python', 'Streamlit', 'Azure Custom Vision'],
+    features: [
+      '사용자가 수박 이미지를 업로드하면 AI 분석 결과를 확인할 수 있는 서비스 흐름 구현',
+      'Streamlit 기반 화면 구성과 배포를 맡아 모델 결과를 실제 서비스로 연결',
+      'Azure Custom Vision 모델 학습, API 호출, 결과 반환, 화면 출력 흐름 검증',
+      '공개 데이터셋의 라벨 한계를 발견하고 직접 수집·정제한 데이터로 모델 개선',
+      '예측 결과를 단정적으로 보여주지 않고 확률 기반 신뢰도와 모델 한계를 함께 안내',
+    ],
+  },
+  {
     id: 'capstone-webapp',
     title: 'Pick-it',
     summary: '프로젝트 팀원 모집과 관리 전반을 지원하는 웹앱',
@@ -19,21 +34,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'watermelon-ai-service',
-    title: '수박의정석',
-    summary: '수박 구매 의사결정을 돕는 AI 이미지 분류 서비스',
-    period: '2026.06',
-    role: '기획/디자인, 서비스 구축/배포, AI 모델 구축 및 연동',
-    stacks: ['Python', 'Streamlit', 'Azure Custom Vision'],
-    features: [
-      '사용자가 수박 이미지를 업로드하면 AI 분석 결과를 확인할 수 있는 서비스 흐름 구현',
-      'Streamlit 기반 화면 구성과 배포를 맡아 모델 결과를 실제 서비스로 연결',
-      'Azure Custom Vision 모델 학습, API 호출, 결과 반환, 화면 출력 흐름 검증',
-      '공개 데이터셋의 라벨 한계를 발견하고 직접 수집·정제한 데이터로 모델 개선',
-      '예측 결과를 단정적으로 보여주지 않고 확률 기반 신뢰도와 모델 한계를 함께 안내',
-    ],
-  },
-  {
     id: 'introduction-app',
     title: 'NUGU',
     summary: '1020세대를 위한 새로운 자기소개 애플리케이션',
@@ -47,6 +47,20 @@ export const projects: Project[] = [
       '서비스 콘셉트와 사용 장면이 잘 전달되도록 발표자료와 발표 흐름 구성',
     ],
     award: '4호선톤 우수상',
+  },
+  {
+    id: 'software-contest-project',
+    title: 'Campus Connect',
+    summary: '외국인 교환학생과 재학생을 연결하는 언어교환 애플리케이션',
+    period: '2024.06 - 2024.09',
+    role: '팀장, 기획/디자인, 프론트엔드',
+    stacks: ['JavaScript', 'React Native', 'Expo'],
+    features: [
+      '교내 외국인 교환학생 증가에 맞춰 재학생과의 언어교환 연결 문제를 서비스 주제로 설정',
+      '팀장으로 기능 제안, 프로토타입 제작, 발표자료 구성까지 프로젝트 흐름 주도',
+      'React Native와 Expo 기반 프론트엔드 화면 구현 담당',
+      '낯선 기술과 오류를 직접 탐색하며 개발 학습의 필요성과 성취감을 체감',
+    ],
   },
   {
     id: 'cheers-tracker',
@@ -87,20 +101,6 @@ export const projects: Project[] = [
       '번아웃을 개인의 의지 문제가 아니라 관리와 회복이 필요한 문제로 정의',
       '정신건강 관리가 부담스럽지 않게 느껴지는 서비스 콘셉트와 핵심 기능 제안',
       '사용자 문제 정의부터 화면 방향, 발표 흐름까지 기획 전반 담당',
-    ],
-  },
-  {
-    id: 'software-contest-project',
-    title: 'Campus Connect',
-    summary: '외국인 교환학생과 재학생을 연결하는 언어교환 애플리케이션',
-    period: '2024.06 - 2024.09',
-    role: '팀장, 기획/디자인, 프론트엔드',
-    stacks: ['JavaScript', 'React Native', 'Expo'],
-    features: [
-      '교내 외국인 교환학생 증가에 맞춰 재학생과의 언어교환 연결 문제를 서비스 주제로 설정',
-      '팀장으로 기능 제안, 프로토타입 제작, 발표자료 구성까지 프로젝트 흐름 주도',
-      'React Native와 Expo 기반 프론트엔드 화면 구현 담당',
-      '낯선 기술과 오류를 직접 탐색하며 개발 학습의 필요성과 성취감을 체감',
     ],
   },
   {

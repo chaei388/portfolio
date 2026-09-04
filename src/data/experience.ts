@@ -10,20 +10,20 @@ export const experiences: Experience[] = [
       '프론트엔드, 백엔드, 데이터베이스부터 Android, iOS, Testing까지 웹앱 개발 전반을 다루는 교육 과정',
   },
   {
-    id: 'capstone-webapp',
-    period: '2026.03 - 2026.06',
-    title: '캡스톤디자인 프로젝트 - Pick-it',
-    description:
-      '프로젝트 팀원 모집과 사용자 활동 관리를 지원하는 웹앱 개발 (PM, Design, Frontend)',
-    projectId: 'capstone-webapp',
-  },
-  {
     id: 'microsoft-ai-academy',
     period: '2026.05 - 2026.06',
     title: 'Microsoft AI Academy - 수박의정석',
     description:
       '수박 구매 의사결정을 돕는 AI 이미지 분류 서비스 개발 (Frontend, AI API)',
     projectId: 'watermelon-ai-service',
+  },
+  {
+    id: 'capstone-webapp',
+    period: '2026.03 - 2026.06',
+    title: '캡스톤디자인 프로젝트 - Pick-it',
+    description:
+      '프로젝트 팀원 모집과 사용자 활동 관리를 지원하는 웹앱 개발 (PM, Design, Frontend)',
+    projectId: 'capstone-webapp',
   },
   {
     id: 'likelion-pm-de',
