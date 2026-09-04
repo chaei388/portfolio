@@ -22,7 +22,7 @@ export const experiences: Experience[] = [
     period: '2026.03 - 2026.06',
     title: '캡스톤디자인 프로젝트 - Pick-it',
     description:
-      '프로젝트 팀원 모집과 사용자 활동 관리를 지원하는 웹앱 개발 (PM, Design, Frontend)',
+      '프로젝트 팀원 모집과 사용자 활동 관리를 지원하는 웹앱 개발 (PM&DE, Frontend)',
     projectId: 'capstone-webapp',
   },
   {
@@ -48,11 +48,19 @@ export const experiences: Experience[] = [
       '시애틀 글로벌 IT 기업 탐방과 재직자 인터뷰를 통한 개발·디자인 협업 사례 학습',
   },
   {
+    id: 'server-system-project',
+    period: '2024.03 - 2024.06',
+    title: '서버시스템구축실습 팀프로젝트 - Albami',
+    description:
+      '아르바이트 일정과 급여 관리를 돕는 웹서비스 제작 (PM&DE, Frontend, Database)',
+    projectId: 'albami',
+  },
+  {
     id: 'app-study',
     period: '2023.03 - 2023.06',
     title: 'Java·Flutter 개발 스터디 - 플래너 애플리케이션',
     description:
-      '일정과 계획을 관리하는 플래너 애플리케이션 제작 (Planning, Design)',
+      '일정과 계획을 관리하는 플래너 애플리케이션 제작 (PM&DE)',
     projectId: 'planner-app',
   },
   {
@@ -60,7 +68,7 @@ export const experiences: Experience[] = [
     period: '2022.09 - 2022.11',
     title: '컴퓨터공학과 학술제 - 캠퍼스정복!',
     description:
-      '교내 탐방과 퀴즈를 결합한 학교 소개 애플리케이션 제작 (Planning, Design)',
+      '교내 탐방과 퀴즈를 결합한 학교 소개 애플리케이션 제작 (PM&DE)',
     projectId: 'campus-quiz-app',
   },
 ]

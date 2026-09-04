@@ -5,7 +5,7 @@ export const projects: Project[] = [
   {
     id: 'watermelon-ai-service',
     title: '수박의정석',
-    summary: '수박 구매 의사결정을 돕는 AI 이미지 분류 서비스',
+    summary: '수박 구매 의사결정을 돕는 AI 이미지 분류 웹앱',
     period: '2026.06',
     role: '기획/디자인, 서비스 구축/배포, AI 모델 구축 및 연동',
     stacks: ['Python', 'Streamlit', 'Azure Custom Vision'],
@@ -88,6 +88,22 @@ export const projects: Project[] = [
       '목표 설정, 진행 기록, 커뮤니티 참여로 이어지는 사용자 흐름 설계',
       '사용자 동기 부여가 자연스럽게 이어지도록 화면 구조와 서비스 톤 정리',
       'QA 관점에서 기능 흐름과 사용성 문제를 점검하고 발표 흐름 구성',
+    ],
+  },
+  {
+    id: 'albami',
+    title: 'Albami',
+    summary: '아르바이트 일정과 급여 관리를 돕는 웹',
+    period: '2024.03 - 2024.06',
+    role: '기획/디자인, 프론트엔드, 데이터베이스',
+    stacks: ['JavaScript', 'Node.js', 'Express', 'MySQL'],
+    features: [
+      '일정 관리, 급여 기록, 지출 계획, 법적 정보 제공 기능을 사용자 흐름에 맞게 정리',
+      'JavaScript 기반 화면 구현에 참여하며 서비스 기능을 화면 흐름으로 연결',
+      'ERD와 HLD를 바탕으로 주요 데이터, 테이블 구조, 데이터 간 관계 설계에 참여',
+      '화면 구성과 디자인을 중심으로 서비스 흐름이 기능 구조와 맞물리도록 정리',
+      'MySQL 연결과 서버 환경 설정 과정에서 발생한 오류를 팀원들과 함께 점검',
+      '화면, 서버, 데이터베이스가 연결되어야 웹서비스가 완성된다는 점을 경험',
     ],
   },
   {
