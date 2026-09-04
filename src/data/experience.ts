@@ -36,7 +36,7 @@ export const experiences: Experience[] = [
     period: '2024.03 - 2024.12',
     title: '멋쟁이사자처럼 PM&DE',
     description:
-      '기획디자인 커리큘럼 학습 및 해커톤 서비스 팀장, PM&DE 참여',
+      '기획디자인 커리큘럼 학습, 해커톤 팀장 및 PM&DE 참여',
     role: 'PM&DE, QA',
   },
   {
