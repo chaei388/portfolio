@@ -15,8 +15,8 @@ function Experience() {
 
                 <div className={styles.content}>
                   <h3 className={styles.itemTitle}>
+                    {/* 제목 + 해당 프로젝트 카드 위치로 이동하는 링크 */}
                     {experience.projectId ? (
-                      // 프로젝트 카드 위치로 이동하는 제목 링크
                       <a
                         href={`#project-${experience.projectId}`}
                         className={styles.projectLink}
@@ -28,6 +28,23 @@ function Experience() {
                     )}
                   </h3>
 
+                  {/* 기술 태그 */}
+                  {experience.stacks && experience.stacks.length > 0 && (
+                    <ul className={styles.stackList}>
+                      {experience.stacks.map((stack) => (
+                        <li key={stack} className={styles.stackItem}>
+                          {stack}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* 역할 */}
+                  {experience.role && (
+                    <p className={styles.role}>{experience.role}</p>
+                  )}
+
+                  {/* 내용 */}
                   <p className={styles.description}>
                     {experience.description}
                   </p>

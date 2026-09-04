@@ -1,0 +1,110 @@
+.title {
+  font: var(--font-h1);
+}
+
+.timeline {
+  /* relative: 요소가 HTML 흐름에서 빠지지 않고 원래 자리 공간을 유지하지만
+  움직일 수 없는 static 속성과 달리 top/left 등 위치 조정 가능
+  (핵심 사용 이유!) absolute 속성을 가진 자식 요소가 위치를 잡을 기준 역할을 해줌 */
+  position: relative;
+
+  width: min(60rem, 100%); /* 960px */
+  margin-top: 3rem; /* 48px */
+}
+
+/* ::before: HTML 태그를 추가하지 않고 CSS로 장식용 요소를 만드는 가상 요소
+세로선 구현에 사용 */
+.timeline::before {
+  content: ''; /* content 속성이 있어야 가상 요소 생성됨 */
+
+  position: absolute; /* absolute: 가장 가까운 부모(timeline) 안에서 좌표로 배치 */
+  top: 0.5rem; /* 8px */
+  bottom: 0;
+  left: 1rem; /* 16px */
+
+  width: 1px;
+  background: var(--blue-300);
+}
+
+.item {
+  position: relative;
+  padding-left: 4rem; /* 64px */
+  padding-bottom: 2rem; /* 32px */
+}
+
+.item:not(:last-child) {
+  margin-bottom: 2rem; /* 32px */
+  border-bottom: 1px dotted var(--gray-300);
+}
+
+/* ::before 가상요소로 각 경험 항목의 원형 포인트 구현 */
+.item::before {
+  content: '';
+
+  position: absolute;
+  top: 0.25rem; /* 4px */
+  left: 1rem; /* 16px */
+  z-index: 1; /* 세로선보다 점이 위에 보이도록 쌓기 순서 설정 */
+
+  width: 0.875rem; /* 14px */
+  height: 0.875rem; /* 14px */
+
+  background: var(--gray-0);
+  border: 0.25rem solid var(--blue-700); /* 4px */
+  border-radius: var(--radius-pill);
+  transform: translateX(-50%);
+}
+
+.period {
+  margin-bottom: 0.5rem; /* 8px */
+
+  font: var(--font-small);
+  color: var(--blue-700);
+}
+
+.content {
+  display: flex;
+  flex-direction: column; /* 제목과 설명을 위아래로 배치 */
+  gap: 0.5rem; /* 8px */
+}
+
+.itemTitle {
+  font: var(--font-h3);
+  color: var(--gray-900);
+}
+
+.role {
+  margin-top: 1rem; /* 16px */
+
+  font: var(--font-small);
+  color: var(--gray-500);
+}
+
+.stackList {
+  display: flex;
+  flex-wrap: wrap; /* 태그가 많으면 자동 줄바꿈 */
+  gap: 0.5rem; /* 8px */
+}
+
+.stackItem {
+  padding: 0.25rem 0.5rem; /* 4px 8px */
+
+  font: var(--font-small);
+
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-pill);
+}
+
+.projectLink {
+  cursor: pointer;
+}
+
+.projectLink:focus-visible {
+  outline: 2px solid var(--blue-700);
+  outline-offset: 0.25rem; /* 4px */
+}
+
+.description {
+  font: var(--font-body2);
+  color: var(--gray-700);
+}
