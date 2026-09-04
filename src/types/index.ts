@@ -46,5 +46,7 @@ export interface Project {
   features: string[]
   githubUrl?: string
   demoUrl?: string
-  isAwarded?: boolean
+  screenshotUrl?: string
+  readmeUrl?: string
+  award?: string
 }
