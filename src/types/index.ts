@@ -45,9 +45,10 @@ export interface Project {
   role: string
   stacks: string[]
   features: string[]
+  thumbnailUrl?: string
   githubUrl?: string
   demoUrl?: string
-  screenshotUrl?: string
-  readmeUrl?: string
+  screenshotUrls?: string[]
+  readmeMd?: string
   award?: string
 }
