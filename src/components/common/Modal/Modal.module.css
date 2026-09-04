@@ -1,0 +1,58 @@
+/* 모달 뒤 배경 그림자*/
+.backdrop {
+  position: fixed; /* 스크롤 위치와 상관없이 화면 기준 고정 */
+  inset: 0; /* 화면 전체 덮기 */
+  z-index: 30; /* Header/TopButton보다 위에 보이도록 쌓기 순서 제일 높게 */
+
+  /* 자식인 modal을 화면 가운데 배치 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem; /* 32px */
+  background: rgba(20, 22, 27, 0.35);
+}
+
+
+/* 모달 */
+.modal {
+  width: min(56rem, 100%); /* 896px */
+  max-height: calc(100vh - 4rem); /* 4rem = 64px */
+
+  overflow: hidden; /* 모달 바깥으로 내용 넘치지 않게 제한 */
+
+  background: var(--gray-0);
+  border-radius: var(--radius-sm);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 제목 왼쪽, 닫기 버튼 오른쪽 양끝 배치*/
+
+  padding: 1rem 1.5rem; /* 16px 24px */
+}
+
+.title {
+  font: var(--font-h3);
+}
+
+.closeButton {
+  width: 2rem; /* 32px */
+  height: 2rem; /* 32px */
+}
+
+.closeButton img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+}
+
+.body {
+  max-height: calc(100vh - 9rem); /* 9rem = 144px */
+
+  overflow-y: auto; /* 모달 전체가 아니라 body 영역 안에서만 스크롤 */
+
+  padding: 1.5rem; /* 24px */
+}
