@@ -16,6 +16,10 @@
 
 /* 카드 왼쪽 영역 (이미지) */
 .media {
+  display: flex; /* 대표 이미지를 카드 이미지 영역 안에 배치 */
+  align-items: center; /* 세로축 가운데 정렬 */
+  justify-content: center; /* 가로축 가운데 정렬 */
+
   min-height: 12rem; /* 192px */
   overflow: hidden;
 
