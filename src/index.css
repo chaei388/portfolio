@@ -73,8 +73,8 @@ ul, ol {
 
 section {
   /* 스크롤 이동 확인 가능하도록 섹션 기본 높이 설정
-    4.5rem(72px)은 Header 높이, 한 섹션이 한 화면씩 보이도록 계산 */
-  min-height: calc(100vh - 4.5rem); /* 72px */
+    --header-height는 Header 높이, 한 섹션이 한 화면씩 보이도록 계산 */
+  min-height: calc(100vh - var(--header-height));
   padding: 6rem 0; /* 96px */
 
   /* Header가 sticky이므로, 헤더 + 여유공간(0.5rem = 8px)만큼 스크롤 도착 위치를 조금 아래로 조정 */

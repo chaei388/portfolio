@@ -15,7 +15,7 @@
   justify-content: space-between; /* 양끝 배치 */
 
   /* Header 고정 높이 */
-  height: 4.5rem; /* 72px */
+  height: var(--header-height);
 }
 
 .logo {

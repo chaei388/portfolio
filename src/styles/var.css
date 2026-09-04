@@ -36,6 +36,9 @@
   --font-body3: 400 1rem/1.6 var(--font-pretendard); /* 16px */
   --font-small: 400 0.875rem/1.5 var(--font-pretendard); /* 14px */
 
+  /* Layout */
+  --header-height: 4.5rem; /* 72px */
+
   /* Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
