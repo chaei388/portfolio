@@ -1,0 +1,142 @@
+/* 프로젝트 카드 전체 박스(article) */
+.card {
+  /* grid 레이아웃으로 카드 내부를 이미지/텍스트 영역으로 분할 */
+  display: grid;
+  grid-template-columns: minmax(12rem, 18rem) 1fr; /* 192px 288px */
+  gap: 2rem; /* 32px */
+
+  padding: 1.5rem; /* 24px */
+
+  scroll-margin-top: 5rem; /* 80px */
+
+  background: var(--gray-0);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-sm);
+}
+
+/* 카드 왼쪽 영역 (이미지) */
+.media {
+  /* 이미지 중앙정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 12rem; /* 192px */
+  overflow: hidden;
+
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+}
+
+/* 카드 왼쪽에 들어가는 대표 이미지 */
+.thumbnail {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+  max-height: 14rem; /* 224px */
+
+  object-fit: contain;
+  padding: 2rem; /* 32px */
+}
+
+/* 카드 오른쪽 영역 (텍스트, 버튼) */
+.content {
+  /* 텍스트를 위에서 아래로 쌓기 */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 16px */
+}
+
+/* 프로젝트 제목과 수상 뱃지를 감싸는 상단 영역 */
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem; /* 16px */
+}
+
+/* 프로젝트 카드 제목(h3) */
+.cardTitle {
+  font: var(--font-h3);
+}
+
+/* 수상 뱃지 */
+.awardBadge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.25rem 0.5rem; /* 4px 8px */
+
+  font: var(--font-small);
+  white-space: nowrap;
+
+  background: var(--yellow-50);
+  border: 1px solid var(--yellow-200);
+  border-radius: var(--radius-pill);
+}
+
+/* 카드 본문 기본 글자 스타일 */
+.summary, .metaList, .featureList, .actionList {
+  font: var(--font-body2);
+}
+
+/* 프로젝트 기간과 역할 정보를 감싸는 영역 */
+.metaList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem; /* 12px 24px */
+}
+
+/* 기간 영역 / 역할 영역 1개 */
+.metaItem {
+  display: flex;
+  gap: 0.5rem; /* 8px */
+}
+
+/* 기간/역할 제목 */
+.metaItem dt {
+  font-weight: 700;
+}
+
+/* 기술 스택 태그 목록 영역 */
+.stackList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* 8px */
+}
+
+/* 기술 스택 태그 1개 */
+.stackItem {
+  padding: 0.25rem 0.5rem; /* 4px 8px */
+
+  font: var(--font-small);
+
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-pill);
+}
+
+/* 주요 구현 내용 목록 */
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* 8px */
+
+  padding-left: 1rem; /* 16px */
+  list-style: disc; /* 전체 비활성화한 리스트 스타일(글머리기호) 표시 */
+}
+
+/* GitHub/Demo/Image/README 버튼을 감싸는 하단 영역 */
+.actionList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* 8px */
+}
+
+/* GitHub/Demo/Image/README 버튼 1개 */
+.actionButton {
+  padding: 0.5rem 0.75rem; /* 8px 12px */
+
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+}

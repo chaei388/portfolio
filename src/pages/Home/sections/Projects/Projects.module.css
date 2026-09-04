@@ -1,0 +1,11 @@
+/* Projects 섹션 제목(h2) */
+.title {
+  font: var(--font-h1);
+}
+
+/* 프로젝트 카드들을 감싸는 목록 영역 */
+.projectList {
+  display: flex;
+  flex-direction: column; /* 카드를 아래로 쌓기(1열 n행) */
+  gap: 1.5rem; /* 24px */
+}
