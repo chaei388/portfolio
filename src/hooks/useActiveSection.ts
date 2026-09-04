@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-/* 화면 중앙 근처에 들어온 Home 섹션의 id를 반환하는 훅
+/* 현재 화면에서 가장 많이 보이는 Home 섹션의 id를 반환하는 훅
 Navigation에서 현재 위치한 메뉴를 표시하기 위해 사용 */
 export function useActiveSection(sectionIds: string[]) {
   // 초기 활성 섹션 id
@@ -8,10 +8,12 @@ export function useActiveSection(sectionIds: string[]) {
   const getInitialSectionId = () => {
     const hashSectionId = window.location.hash.replace('#', '')
 
+    // 실제 존재하는 섹션인지 확인
     if (sectionIds.includes(hashSectionId)) {
       return hashSectionId
     }
 
+    // 실제 존재하지 않는 섹션이면 맨 위로
     return sectionIds[0] ?? ''
   }
 
@@ -19,66 +21,82 @@ export function useActiveSection(sectionIds: string[]) {
   const [activeSectionId, setActiveSectionId] = useState(getInitialSectionId)
 
   useEffect(() => {
-    // 감시할 섹션 id가 없으면 observer 안 만듦
+    // 감시할 섹션 id가 없으면 스크롤 계산 X
     if (sectionIds.length === 0) return
 
-    // IntersectionObserver: 섹션이 화면에 들어왔는지 브라우저가 알려주는 API
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSectionId(entry.target.id)
-          }
-        })
-      },
-      {
-        /* rootMargin: observer가 판단하는 화면 영역 조절
-          위아래 45%를 줄여서 화면 중앙 근처에 온 섹션만 active로 판단 */
-        rootMargin: '-45% 0px -45% 0px',
-      },
-    )
+    // HTML section 가져오기
+    const getSectionElements = () =>
+      sectionIds
+        .map((sectionId) => document.getElementById(sectionId))
+        .filter((section): section is HTMLElement => Boolean(section))
 
-    sectionIds.forEach((sectionId) => {
-      const section = document.getElementById(sectionId)
+    // 섹션 active 자동 전환 처리하는 함수!
+    // 현재 화면에서 가장 많이 보이는 section이 뭔지 계산해서 반영
+    const updateActiveSection = () => {
+      const sectionElements = getSectionElements()
 
-      // 아직 렌더링되지 않았거나 id가 잘못된 섹션은 null이므로 건너뜀
-      if (section) {
-        // 실제 DOM 요소를 observer 감시 대상에 등록
-        observer.observe(section)
-      }
-    })
-
-    // Contact 섹션이 옵저버에 안 잡히는 문제 해결
-    // → 최하단에 닿으면 Contact 자동 active
-    const handleScrollBottom = () => {
-      // window.scrollY: 문서 맨 위에서 현재 얼마나 아래로 내려왔는지
-      // window.innerHeight: 브라우저 화면에서 실제로 보이는 높이
-      // 둘을 더하면 현재 화면의 아래쪽 위치를 알 수 있음
+      // 아직 렌더링된 섹션이 없으면 active 값을 바꾸지 않음
+      if (sectionElements.length === 0) return
+      
+      // window.scrollY: 페이지 맨 위에서부터 얼마나 내려왔는지
+      // window.innerHeight: 현재 브라우저 화면 높이
+      // currentScrollBottom: 현재 화면의 맨 아래가 문서의 어느 위치인지
       const currentScrollBottom = window.scrollY + window.innerHeight
-
-      // scrollHeight: 스크롤 가능한 문서 전체 높이
       const documentHeight = document.documentElement.scrollHeight
 
-      // 2px 이내면 맨 아래로 판단
+      // 화면 아래쪽과 문서 끝의 차이가 2px 이하면 페이지 맨 아래로 판단
       const isPageBottom = documentHeight - currentScrollBottom <= 2
 
+      // 페이지 맨 아래에서는 마지막 섹션(Contact)을 우선 active 처리
       if (isPageBottom) {
-        // 마지막 섹션(Contact)이 짧아 observer 기준에 안 걸려도,
-        // 페이지 맨 아래에서는 마지막 메뉴가 active 되도록 처리
         setActiveSectionId(sectionIds[sectionIds.length - 1])
+        return
+      }
+
+      // Header는 sticky라 화면 위쪽을 차지하므로, 실제 본문이 보이는 영역은 Header 아래부터로 계산
+      const headerHeight =
+        document.querySelector('header')?.getBoundingClientRect().height ?? 0
+      const visibleAreaTop = headerHeight
+      const visibleAreaBottom = window.innerHeight
+
+      let maxVisibleHeight = 0
+      let nextActiveSectionId = ''
+
+      sectionElements.forEach((section) => {
+        const sectionRect = section.getBoundingClientRect()
+
+        // visibleTop/visibleBottom: 섹션과 현재 화면이 겹치는 부분의 위/아래 위치
+        const visibleTop = Math.max(sectionRect.top, visibleAreaTop)
+        const visibleBottom = Math.min(sectionRect.bottom, visibleAreaBottom)
+
+        // visibleHeight: 현재 화면에 실제로 보이는 섹션 높이
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop)
+
+        if (visibleHeight > maxVisibleHeight) {
+          maxVisibleHeight = visibleHeight
+          nextActiveSectionId = section.id
+        }
+      })
+
+      // 화면에 보이는 섹션이 있을 때만 active 변경
+      if (nextActiveSectionId) {
+        setActiveSectionId(nextActiveSectionId)
       }
     }
 
-    // scroll 이벤트: 사용자가 스크롤할 때마다 현재 위치가 맨 아래인지 확인
-    window.addEventListener('scroll', handleScrollBottom, { passive: true })
+    // scroll 이벤트: 사용자가 스크롤할 때마다 가장 많이 보이는 섹션 다시 계산
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
 
-    // 새로고침 또는 hash 진입 직후 이미 맨 아래인 경우를 대비해 한 번 실행
-    handleScrollBottom()
+    // resize 이벤트: 브라우저 높이가 바뀌면 보이는 섹션 비율도 달라질 수 있어서 다시 계산
+    window.addEventListener('resize', updateActiveSection)
 
-    // 컴포넌트가 사라질 때 observer 연결 정리
+    // 첫 렌더링 직후 현재 위치 기준 active 섹션 계산
+    updateActiveSection()
+
+    // 컴포넌트가 사라질 때 이벤트 연결 정리
     return () => {
-      observer.disconnect()
-      window.removeEventListener('scroll', handleScrollBottom)
+      window.removeEventListener('scroll', updateActiveSection)
+      window.removeEventListener('resize', updateActiveSection)
     }
   }, [sectionIds])
 
