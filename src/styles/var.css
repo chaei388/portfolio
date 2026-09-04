@@ -23,18 +23,18 @@
   --font-pretendard: 'Pretendard', sans-serif;
 
   /* Typography */
-  --font-logo: 800 1.5rem/1.4 var(--font-paperlogy);
-  --font-display: 800 3.25rem/1.2 var(--font-paperlogy);
-  --font-h1: 700 2rem/1.4 var(--font-paperlogy);
-  --font-h2: 700 1.5rem/1.4 var(--font-paperlogy);
-  --font-h3: 700 1.25rem/1.4 var(--font-paperlogy);
-  --font-nav: 500 1rem/1.3 var(--font-paperlogy);
-  --font-nav-strong: 700 1rem/1.3 var(--font-paperlogy);
+  --font-logo: 800 1.5rem/1.4 var(--font-paperlogy); /* 24px */
+  --font-display: 800 3.25rem/1.2 var(--font-paperlogy); /* 52px */
+  --font-h1: 700 2rem/1.4 var(--font-paperlogy); /* 32px */
+  --font-h2: 700 1.5rem/1.4 var(--font-paperlogy); /* 24px */
+  --font-h3: 700 1.25rem/1.4 var(--font-paperlogy); /* 20px */
+  --font-nav: 500 1rem/1.3 var(--font-paperlogy); /* 16px */
+  --font-nav-strong: 700 1rem/1.3 var(--font-paperlogy); /* 16px */
 
-  --font-body1: 500 1.125rem/1.6 var(--font-pretendard);
-  --font-body2: 500 1rem/1.6 var(--font-pretendard);
-  --font-body3: 400 1rem/1.6 var(--font-pretendard);
-  --font-small: 400 0.875rem/1.5 var(--font-pretendard);
+  --font-body1: 500 1.125rem/1.6 var(--font-pretendard); /* 18px */
+  --font-body2: 500 1rem/1.6 var(--font-pretendard); /* 16px */
+  --font-body3: 400 1rem/1.6 var(--font-pretendard); /* 16px */
+  --font-small: 400 0.875rem/1.5 var(--font-pretendard); /* 14px */
 
   /* Radius */
   --radius-sm: 8px;

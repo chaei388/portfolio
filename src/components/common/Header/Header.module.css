@@ -15,7 +15,7 @@
   justify-content: space-between; /* 양끝 배치 */
 
   /* Header 고정 높이 */
-  height: 4.5rem;
+  height: 4.5rem; /* 72px */
 }
 
 .logo {
@@ -27,5 +27,5 @@
 키보드 포커스가 메뉴에 있을 때 위치를 알아볼 수 있게 표시 */
 .logo:focus-visible {
   outline: 2px solid var(--blue-700);
-  outline-offset: 0.25rem;
+  outline-offset: 0.25rem; /* 4px */
 }
