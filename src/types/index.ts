@@ -15,7 +15,8 @@ export type SkillCategory =
   | 'Frontend'
   | 'Backend'
   | 'Database'
-  | 'DevOps & Tools'
+  | 'DevOps'
+  | 'Tools'
 
 export interface SkillGroup {
   id: string

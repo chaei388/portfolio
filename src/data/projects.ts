@@ -8,7 +8,7 @@ export const projects: Project[] = [
     summary: '프로젝트 팀원 모집과 관리 전반을 지원하는 웹앱',
     period: '2026.03 - 2026.06',
     role: '팀장, 기획/디자인, 프론트엔드',
-    stacks: ['React', 'JavaScript', 'Sass'],
+    stacks: ['React', 'JavaScript', 'SCSS'],
     features: [
       '마이페이지와 팀원 모집 페이지의 화면 구현 및 API 연동 담당',
       '검색어, 정렬, 성향 조건을 서버에 전달하는 목록 조회 흐름 구현',
