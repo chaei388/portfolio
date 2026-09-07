@@ -1,4 +1,5 @@
 import type { Skill, SkillGroup } from '../types'
+
 import awsIcon from '../assets/icons/skills/aws.svg'
 import azureIcon from '../assets/icons/skills/azure.svg'
 import cppIcon from '../assets/icons/skills/cpp.svg'
@@ -43,63 +44,33 @@ export const skillGroups: SkillGroup[] = [
 
 // 기술 스택 항목
 export const skills: Skill[] = [
-  {
-    id: 'javascript',
-    name: 'JavaScript',
-    category: 'Language',
-    icon: javascriptIcon,
-  },
-  {
-    id: 'typescript',
-    name: 'TypeScript',
-    category: 'Language',
-    icon: typescriptIcon,
-  },
+  // Language
+  { id: 'javascript', name: 'JavaScript', category: 'Language', icon: javascriptIcon },
+  { id: 'typescript', name: 'TypeScript', category: 'Language', icon: typescriptIcon },
   { id: 'java', name: 'Java', category: 'Language', icon: javaIcon },
   { id: 'python', name: 'Python', category: 'Language', icon: pythonIcon },
   { id: 'cpp', name: 'C++', category: 'Language', icon: cppIcon },
 
+  // Frontend
   { id: 'html', name: 'HTML', category: 'Frontend', icon: htmlIcon },
   { id: 'css', name: 'CSS', category: 'Frontend', icon: cssIcon },
   { id: 'scss', name: 'SCSS', category: 'Frontend', icon: scssIcon },
-  {
-    id: 'tailwind-css',
-    name: 'Tailwind CSS',
-    category: 'Frontend',
-    icon: tailwindCssIcon,
-  },
+  { id: 'tailwind-css', name: 'Tailwind CSS', category: 'Frontend', icon: tailwindCssIcon },
   { id: 'react', name: 'React', category: 'Frontend', icon: reactIcon },
-  {
-    id: 'react-native',
-    name: 'React Native',
-    category: 'Frontend',
-    icon: reactNativeIcon,
-  },
+  { id: 'react-native', name: 'React Native', category: 'Frontend', icon: reactNativeIcon },
 
+  // Backend
   { id: 'nodejs', name: 'Node.js', category: 'Backend', icon: nodejsIcon },
-  {
-    id: 'spring-boot',
-    name: 'Spring Boot',
-    category: 'Backend',
-    icon: springBootIcon,
-  },
+  { id: 'spring-boot', name: 'Spring Boot', category: 'Backend', icon: springBootIcon },
 
-  {
-    id: 'postgresql',
-    name: 'PostgreSQL',
-    category: 'Database',
-    icon: postgresqlIcon,
-  },
+  // Database
+  { id: 'postgresql', name: 'PostgreSQL', category: 'Database', icon: postgresqlIcon },
   { id: 'mysql', name: 'MySQL', category: 'Database', icon: mysqlIcon },
 
+  // DevOps
   { id: 'git', name: 'Git', category: 'DevOps', icon: gitIcon },
   { id: 'github', name: 'GitHub', category: 'DevOps', icon: githubIcon },
-  {
-    id: 'github-actions',
-    name: 'GitHub Actions',
-    category: 'DevOps',
-    icon: githubActionsIcon,
-  },
+  { id: 'github-actions', name: 'GitHub Actions', category: 'DevOps', icon: githubActionsIcon },
   { id: 'docker', name: 'Docker', category: 'DevOps', icon: dockerIcon },
   { id: 'aws', name: 'AWS', category: 'DevOps', icon: awsIcon },
   { id: 'azure', name: 'Azure', category: 'DevOps', icon: azureIcon },
@@ -107,20 +78,11 @@ export const skills: Skill[] = [
   { id: 'nginx', name: 'Nginx', category: 'DevOps', icon: nginxIcon },
   { id: 'linux', name: 'Linux', category: 'DevOps', icon: linuxIcon },
 
+  // Tools
   { id: 'vite', name: 'Vite', category: 'Tools', icon: viteIcon },
   { id: 'expo', name: 'Expo', category: 'Tools', icon: expoIcon },
-  {
-    id: 'streamlit',
-    name: 'Streamlit',
-    category: 'Tools',
-    icon: streamlitIcon,
-  },
-  {
-    id: 'supabase',
-    name: 'Supabase',
-    category: 'Tools',
-    icon: supabaseIcon,
-  },
+  { id: 'streamlit', name: 'Streamlit', category: 'Tools', icon: streamlitIcon },
+  { id: 'supabase', name: 'Supabase', category: 'Tools', icon: supabaseIcon },
   { id: 'figma', name: 'Figma', category: 'Tools', icon: figmaIcon },
   { id: 'notion', name: 'Notion', category: 'Tools', icon: notionIcon },
   { id: 'postman', name: 'Postman', category: 'Tools', icon: postmanIcon },
