@@ -24,6 +24,19 @@
   /* filter: 요소 전체에 시각 효과 입히는 CSS 속성
   drop-shadow: 요소 실제 모양 따라 그림자 만들기 (box-shadow는 사각형 모양대로...)*/
   filter: drop-shadow(0 4px 4px rgb(0 0 0 / 25%));
+
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1rem); /* 아래쪽으로 16px 내려가며 자연스럽게 사라짐 */
 }
 
 .icon {
