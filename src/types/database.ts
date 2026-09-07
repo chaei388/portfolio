@@ -1,6 +1,6 @@
 import type { AnswerBlock, CodeLanguage, PostStatus } from './archive'
 
-export interface PostRow {
+export type PostRow = {
   id: string
   owner_id: string
   title: string
@@ -14,7 +14,7 @@ export interface PostRow {
   updated_at: string
 }
 
-export interface AnswerRow {
+export type AnswerRow = {
   id: string
   post_id: string
   owner_id: string
