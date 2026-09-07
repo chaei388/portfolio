@@ -74,7 +74,7 @@
   background: rgb(252 253 255 / 70%);
   border: 1px solid var(--gray-100);
   border-radius: var(--radius-lg);
-  box-shadow: 0 0.75rem 2rem rgb(79 118 196 / 8%);
+  box-shadow: var(--shadow-card);
   backdrop-filter: blur(1rem);
 }
 
