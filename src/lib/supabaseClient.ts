@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '../types/database'
 
-let client: SupabaseClient | null = null
+let client: SupabaseClient<Database> | null = null
 
 // Archive에서 요청할 때 초기화하여 Home은 연결 설정에 의존하지 않음
 export function getSupabase() {
@@ -13,7 +14,7 @@ export function getSupabase() {
     throw new Error('Archive 연결 설정을 확인해주세요.')
   }
 
-  client = createClient(url, key, {
+  client = createClient<Database>(url, key, {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
