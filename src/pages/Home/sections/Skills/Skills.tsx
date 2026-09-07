@@ -18,15 +18,26 @@ function Skills() {
 
               return (
                 <article key={group.id} className={styles.group}>
+
+                  {/* 스킬 카테고리명 */}
                   <h3 className={styles.groupTitle}>{group.title}</h3>
 
                   <ul className={styles.skillList}>
                     {groupSkills.map((skill) => (
                       <li key={skill.id} className={styles.skillItem}>
-                        {skill.name}
+                        {/* 스킬 아이콘 이미지 */}
+                        <img
+                          src={skill.icon}
+                          alt=""
+                          className={styles.skillIcon}
+                        />
+
+                        {/* 스킬 이름 */}
+                        <span className={styles.skillName}>{skill.name}</span>
                       </li>
                     ))}
                   </ul>
+                  
                 </article>
               )
             })}
