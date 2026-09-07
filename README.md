@@ -23,7 +23,13 @@ One Page Portfolio + Archive Pages
 - Skills: 기술 스택 카테고리별 정리
 - Projects: 프로젝트 소개, 역할, 기술 스택, GitHub/Demo 링크
 - Contact: Email, GitHub 등 외부 링크
-- Archive: 문제 해결 기록 목록, 상세 조회, 작성 기능 (Supabase 연동 예정)
+- Archive: Supabase 기반 문제 해결 기록과 답변 조회, 관리자 로그인 및 글/답변 관리
+
+## Archive 설정
+
+- Home은 정적 데이터로 유지하며, Archive에만 Supabase Auth와 DB를 연결합니다.
+- 방문자는 공개 글과 답변을 조회하고, 등록된 관리자만 글과 답변을 관리합니다.
+- 환경변수, DB 초기 설정, 초기 데이터 이관, 검증 방법은 [Archive Supabase 설정](docs/archive-supabase.md)을 참고하세요.
 
 ## 라우트 구조
 
@@ -32,6 +38,7 @@ One Page Portfolio + Archive Pages
 /archive            Archive 목록
 /archive/new        Archive 작성
 /archive/:id        Archive 상세
+/archive/:id/edit   Archive 수정 (관리자)
 ```
 
 ## 프로젝트 구조
@@ -97,6 +104,10 @@ src/
 │   │           ├── Contact.tsx
 │   │           └── Contact.module.css
 │   └── Archive/
+│       ├── ArchiveLayout.tsx               # Archive 인증 영역과 로그인/로그아웃
+│       ├── ArchiveLogin.tsx                # 관리자 로그인 모달
+│       ├── ArchiveCommon.module.css        # Archive 관리 UI 공통 스타일
+│       ├── useArchiveAuth.ts               # Archive 인증 컨텍스트
 │       ├── ArchiveList/                    # 아카이브 목록 페이지
 │       │   ├── ArchiveList.tsx
 │       │   └── ArchiveList.module.css
@@ -109,9 +120,9 @@ src/
 │
 ├── data/                                   # 정적 데이터
 │   ├── about.ts                            # About - 프로필 데이터
-│   ├── archiveAnswers.ts                   # Archive - 게시글 답변 데이터
+│   ├── archiveAnswers.ts                   # Archive - 초기 이관용 답변 원본
 │   ├── archiveLanguages.ts                 # Archive - 코드 언어 옵션
-│   ├── archivePosts.ts                     # Archive - 게시글 데이터
+│   ├── archivePosts.ts                     # Archive - 초기 이관용 게시글 원본
 │   ├── skills.ts                           # Skills - 기술 스택 데이터
 │   ├── experience.ts                       # Experience - 경험 데이터
 │   ├── projects.ts                         # Projects - 프로젝트 데이터
@@ -119,9 +130,11 @@ src/
 │
 ├── hooks/                                  # 커스텀 훅
 │   ├── useActiveSection.ts                 # 현재 화면 기준 active 섹션 계산
+│   ├── useArchiveQuery.ts                  # Archive 조회 취소와 로딩/오류 처리
 │   └── useRouteScroll.ts                   # 라우트 이동 시 스크롤 위치 보정
 │
 ├── lib/                                    # 외부 서비스 클라이언트
+│   ├── archiveApi.ts                       # Archive 데이터 조회 및 저장 요청
 │   └── supabaseClient.ts
 │
 ├── styles/
@@ -129,6 +142,7 @@ src/
 │
 ├── types/                                  # 타입 정의
 │   ├── archive.ts                          # Archive 타입
+│   ├── database.ts                         # Archive DB 타입
 │   ├── experience.ts                       # Experience 타입
 │   ├── navigation.ts                       # Navigation 타입
 │   ├── project.ts                          # Project 타입
