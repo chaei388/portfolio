@@ -1,0 +1,47 @@
+.description {
+  font: var(--font-body3);
+  color: var(--gray-700);
+}
+
+.actions {
+  display: flex; /* 취소/확인 버튼을 오른쪽에 나란히 배치 */
+  justify-content: flex-end;
+  gap: 0.75rem; /* 12px */
+
+  margin-top: 1.5rem; /* 24px */
+}
+
+.cancelButton,
+.confirmButton {
+  padding: 0.625rem 1rem; /* 10px 16px */
+
+  border-radius: var(--radius-pill);
+  font: var(--font-body2);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.cancelButton {
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+  background: var(--gray-0);
+}
+
+.cancelButton:hover {
+  color: var(--gray-900);
+  border-color: var(--gray-500);
+  background: var(--gray-100);
+}
+
+.confirmButton {
+  color: var(--gray-900);
+  border: 1px solid var(--blue-300);
+  background: var(--blue-100);
+}
+
+.confirmButton:hover {
+  border-color: var(--blue-500);
+  background: var(--blue-300);
+}
