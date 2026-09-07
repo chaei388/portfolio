@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import ConfirmModal from '../../../components/common/ConfirmModal/ConfirmModal'
-import { archivePosts } from '../../../data/archivePosts'
+import { archiveError, listPosts, setPostStatus } from '../../../lib/archiveApi'
+import { useArchiveQuery } from '../../../hooks/useArchiveQuery'
+import { useArchiveAuth } from '../useArchiveAuth'
+import common from '../ArchiveCommon.module.css'
 import type { PostStatus } from '../../../types/archive'
 import solvedIcon from '../../../assets/icons/check_solved.svg'
 import unsolvedIcon from '../../../assets/icons/check_unsolved.svg'
@@ -22,8 +25,12 @@ const getStatusLabel = (status: PostStatus) =>
   status === 'solved' ? '해결완료' : '미해결'
 
 function ArchiveList() {
-  // 정적 데이터를 화면 상태로 복사해서 버튼 클릭 시 상태 전환을 먼저 확인
-  const [posts, setPosts] = useState(archivePosts)
+  const { user, isAdmin, ready } = useArchiveAuth()
+  const { data, loading, error, refresh } = useArchiveQuery(listPosts, `${ready}:${user?.id}:${isAdmin}`)
+  const posts = data ?? []
+  const [busy, setBusy] = useState(false)
+  const busyRef = useRef(false)
+  const [actionError, setActionError] = useState('')
   const [selectedStatus, setSelectedStatus] = useState<PostStatus | null>(
     null,
   )
@@ -35,7 +42,7 @@ function ArchiveList() {
     : posts
 
   const targetPost =
-    posts.find((post) => post.id === targetPostId) ?? null
+    posts.find((post) => post.id === targetPostId && isAdmin && post.ownerId === user?.id) ?? null
   const nextStatus = targetPost ? getNextStatus(targetPost.status) : null
 
   const handleFilterClick = (status: PostStatus) => {
@@ -45,17 +52,22 @@ function ArchiveList() {
     )
   }
 
-  const handleStatusConfirm = () => {
-    if (!targetPost) return
-
-    setPosts((currentPosts) =>
-      currentPosts.map((post) =>
-        post.id === targetPost.id
-          ? { ...post, status: getNextStatus(post.status) }
-          : post,
-      ),
-    )
-    setTargetPostId(null)
+  const handleStatusConfirm = async () => {
+    if (!targetPost || busyRef.current) return
+    busyRef.current = true
+    setBusy(true)
+    setActionError('')
+    try {
+      await setPostStatus(targetPost.id, getNextStatus(targetPost.status))
+      setTargetPostId(null)
+      refresh()
+    } catch (cause) {
+      setActionError(archiveError(cause))
+      setTargetPostId(null)
+    } finally {
+      busyRef.current = false
+      setBusy(false)
+    }
   }
 
   return (
@@ -90,11 +102,15 @@ function ArchiveList() {
               })}
             </div>
 
-            <Link to="/archive/new" className={styles.writeButton}>
+            {ready && isAdmin && <Link to="/archive/new" className={styles.writeButton}>
               새 글 작성
-            </Link>
+            </Link>}
           </div>
 
+          {loading && <p className={common.message} role="status">게시글을 불러오는 중…</p>}
+          {error && <div role="alert"><p className={common.error}>{error}</p><button type="button" className={common.button} onClick={refresh}>다시 시도</button></div>}
+          {actionError && <p role="alert" className={common.error}>{actionError}</p>}
+          {!loading && !error && filteredPosts.length === 0 && <p className={common.message}>{posts.length ? '선택한 상태의 게시글이 없습니다.' : '아직 작성된 게시글이 없습니다.'}</p>}
           <ul className={styles.postList}>
             {filteredPosts.map((post) => {
               const isSolved = post.status === 'solved'
@@ -144,13 +160,14 @@ function ArchiveList() {
 
                     <button
                       type="button"
+                      disabled={!ready || !isAdmin || post.ownerId !== user?.id || busy}
                       className={`${styles.statusButton} ${
                         isSolved ? styles.solvedStatus : styles.unsolvedStatus
                       }`}
                       onClick={() => setTargetPostId(post.id)}
-                      aria-label={`${post.title} ${getStatusLabel(
+                      aria-label={isAdmin && post.ownerId === user?.id ? `${post.title} ${getStatusLabel(
                         getNextStatus(post.status),
-                      )} 처리`}
+                      )} 처리` : `${post.title} ${statusLabel}`}
                     >
                       <img
                         src={statusIcon}
@@ -173,8 +190,9 @@ function ArchiveList() {
           description={`언제든 다시 ${getStatusLabel(
             targetPost.status,
           )}로 변경할 수 있습니다.`}
-          onClose={() => setTargetPostId(null)}
-          onConfirm={handleStatusConfirm}
+          confirmLabel={busy ? '저장 중…' : '확인'}
+          onClose={() => { if (!busyRef.current) setTargetPostId(null) }}
+          onConfirm={() => void handleStatusConfirm()}
         />
       )}
     </>

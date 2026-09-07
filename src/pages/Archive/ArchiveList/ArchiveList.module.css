@@ -2,6 +2,13 @@
   min-height: calc(100vh - var(--header-height));
 }
 
+.statusButton:disabled { opacity: 1; cursor: default; }
+.statusButton:disabled:hover .statusIcon { transform: none; }
+
+@media (max-width: 600px) {
+  .toolbar { flex-wrap: wrap; gap: 1rem; }
+}
+
 .title {
   font: var(--font-h1);
   color: var(--gray-900);
