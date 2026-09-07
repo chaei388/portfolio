@@ -55,3 +55,34 @@ export interface Project {
   readmeMd?: string
   award?: string
 }
+
+export type PostStatus = 'solved' | 'unsolved'
+
+export type CodeLanguage =
+  | 'javascript'
+  | 'typescript'
+  | 'tsx'
+  | 'java'
+  | 'python'
+  | 'html'
+  | 'css'
+  | 'sql'
+  | 'bash'
+  | 'json'
+
+export interface CodeLanguageOption {
+  value: CodeLanguage
+  label: string
+}
+
+export interface ArchivePost {
+  id: string
+  title: string
+  content: string // 본문 입력값
+  language: CodeLanguage // 코드블록 언어 선택값
+  codeText: string // 코드 입력값
+  tags: string[] // 해시태그
+  status: PostStatus
+  answerCount: number
+  createdAt: string
+}
