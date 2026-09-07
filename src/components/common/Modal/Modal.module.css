@@ -16,7 +16,6 @@
 
 /* 모달 */
 .modal {
-  width: min(56rem, 100%); /* 896px */
   max-height: calc(100vh - 4rem); /* 4rem = 64px */
 
   overflow: hidden; /* 모달 바깥으로 내용 넘치지 않게 제한 */
@@ -25,12 +24,22 @@
   border-radius: var(--radius-lg);
 }
 
+/* 짧은 확인/알림용 모달 */
+.small {
+  width: min(28rem, 100%); /* 448px */
+}
+
+/* 이미지, README처럼 내용이 많은 모달 */
+.large {
+  width: min(56rem, 100%); /* 896px */
+}
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between; /* 제목 왼쪽, 닫기 버튼 오른쪽 양끝 배치*/
 
-  padding: 1rem 1.5rem; /* 16px 24px */
+  padding: 1.5rem 2rem 0; /* 24px 32px 0 */
 }
 
 .title {
@@ -50,9 +59,9 @@
 }
 
 .body {
-  max-height: calc(100vh - 9rem); /* 9rem = 144px */
+  max-height: calc(100vh - 10rem); /* 10rem = 160px */
 
   overflow-y: auto; /* 모달 전체가 아니라 body 영역 안에서만 스크롤 */
 
-  padding: 1.5rem; /* 24px */
+  padding: 1rem 2rem 2rem; /* 16px 32px 32px */
 }

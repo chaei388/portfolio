@@ -6,15 +6,16 @@ interface ModalProps {
   title: string // 제목
   onClose: () => void // 모달 닫는 함수
   children: ReactNode // 본문(내용) - ReactNode로 다양한 형태 가능
+  size?: 'small' | 'large' // 모달 폭 크기: 확인 모달은 small, 이미지/README 모달은 large
 }
 
-function Modal({ title, onClose, children }: ModalProps) {
+function Modal({ title, onClose, children, size = 'large' }: ModalProps) {
   return (
     <>
-    {/* 모달 바깥 영역을 클릭하면 onClose 실행 */}
+      {/* 모달 바깥 영역을 클릭하면 onClose 실행 */}
       <div className={styles.backdrop} onClick={onClose}>
         <div
-          className={styles.modal}
+          className={`${styles.modal} ${styles[size]}`}
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-title"
