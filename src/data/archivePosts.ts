@@ -1,6 +1,6 @@
-import type { ArchivePost } from '../types'
+import type { Post } from '../types/archive'
 
-export const archivePosts: ArchivePost[] = [
+export const archivePosts: Post[] = [
   {
     id: 'backdrop-filter-deploy',
     title: 'Vercel 배포 환경에서 backdrop-filter 미적용 오류',

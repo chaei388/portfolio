@@ -1,6 +1,6 @@
-import type { CodeLanguageOption } from '../types'
+import type { CodeLanguageOption } from '../types/archive'
 
-export const CodeLanguage: CodeLanguageOption[] = [
+export const codeLanguageOptions: CodeLanguageOption[] = [
   { value: 'javascript', label: 'JavaScript' },
   { value: 'typescript', label: 'TypeScript' },
   { value: 'tsx', label: 'TSX' },

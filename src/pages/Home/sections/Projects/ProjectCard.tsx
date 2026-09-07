@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Modal from '../../../../components/common/Modal/Modal'
-import type { Project } from '../../../../types'
+import type { Project } from '../../../../types/project'
 import cardStyles from './ProjectCard.module.css'
 import modalStyles from './ProjectModal.module.css'
 

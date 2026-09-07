@@ -1,4 +1,4 @@
-import type { Skill, SkillGroup } from '../types'
+import type { Skill, SkillGroup } from '../types/skill'
 
 import awsIcon from '../assets/icons/skills/aws.svg'
 import azureIcon from '../assets/icons/skills/azure.svg'

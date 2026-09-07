@@ -1,4 +1,4 @@
-import type { Project } from '../types'
+import type { Project } from '../types/project'
 
 // 프로젝트 카드 정적 데이터
 export const projects: Project[] = [

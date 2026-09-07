@@ -1,4 +1,7 @@
-import type { PageNavigationItem, SectionNavigationItem } from '../types'
+import type {
+  PageNavigationItem,
+  SectionNavigationItem,
+} from '../types/navigation'
 
 // 기본 메뉴
 // id 값은 각 섹션의 <section id="..."> 값과 같아야 함

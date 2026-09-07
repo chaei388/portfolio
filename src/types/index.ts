@@ -16,7 +16,6 @@ export type {
   CodeLanguage,
   CodeLanguageOption,
   Post,
-  Post as ArchivePost,
   PostStatus,
   TextBlock,
 } from './archive'
