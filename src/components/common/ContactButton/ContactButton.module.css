@@ -16,7 +16,6 @@
   background: rgb(252 253 255 / 32%);
   border-radius: var(--radius-pill);
   backdrop-filter: blur(1rem);
-  -webkit-backdrop-filter: blur(1rem);
 
   /* filter: 요소 전체에 시각 효과 입히는 CSS 속성
   drop-shadow: 요소 실제 모양 따라 그림자 만들기 (box-shadow는 사각형 모양대로...)*/
@@ -65,7 +64,6 @@
   border: 1px solid rgb(252 253 255 / 54%);
   border-radius: var(--radius-pill);
   backdrop-filter: blur(1rem);
-  -webkit-backdrop-filter: blur(1rem);
   opacity: 0;
 
   transition:
