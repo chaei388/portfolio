@@ -124,13 +124,18 @@ function ArchiveList() {
                         <p className={styles.preview}>{post.content}</p>
 
                         <div className={styles.postMeta}>
-                          <ul className={styles.tagList}>
-                            {post.tags.map((tag) => (
-                              <li key={tag}># {tag}</li>
-                            ))}
-                          </ul>
+                          {post.tags && post.tags.length > 0 && (
+                            <ul className={styles.tagList}>
+                              {post.tags.map((tag) => (
+                                <li key={tag}># {tag}</li>
+                              ))}
+                            </ul>
+                          )}
 
-                          <time dateTime={post.createdAt.replaceAll('.', '-')}>
+                          <time
+                            className={styles.createdAt}
+                            dateTime={post.createdAt.replaceAll('.', '-')}
+                          >
                             작성일 {post.createdAt}
                           </time>
                         </div>

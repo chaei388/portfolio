@@ -33,12 +33,14 @@ const getTodayText = () => {
   return `${year}.${month}.${date}`
 }
 
-const getCodeLanguageLabel = (language: CodeLanguage) =>
-  codeLanguageOptions.find((option) => option.value === language)?.label ??
+const getCodeLanguageLabel = (language: CodeLanguage | null) =>
   language
+    ? codeLanguageOptions.find((option) => option.value === language)?.label ??
+      language
+    : 'Plain Text'
 
 interface CodeBlockProps {
-  language: CodeLanguage
+  language: CodeLanguage | null
   codeText: string
 }
 
@@ -197,13 +199,18 @@ function ArchiveDetail() {
             )}
 
             <footer className={styles.postMeta}>
-              <ul className={styles.tagList}>
-                {post.tags.map((tag) => (
-                  <li key={tag}># {tag}</li>
-                ))}
-              </ul>
+              {post.tags && post.tags.length > 0 && (
+                <ul className={styles.tagList}>
+                  {post.tags.map((tag) => (
+                    <li key={tag}># {tag}</li>
+                  ))}
+                </ul>
+              )}
 
-              <time dateTime={post.createdAt.replaceAll('.', '-')}>
+              <time
+                className={styles.createdAt}
+                dateTime={post.createdAt.replaceAll('.', '-')}
+              >
                 작성일 {post.createdAt}
               </time>
             </footer>

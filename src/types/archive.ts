@@ -21,9 +21,9 @@ export interface Post {
   id: string
   title: string
   content: string // 본문 입력값
-  language: CodeLanguage // 코드블록 언어 선택값
-  codeText: string // 코드 입력값
-  tags: string[] // 해시태그
+  language: CodeLanguage | null // 코드블록 언어 선택값
+  codeText: string | null // 코드 입력값
+  tags: string[] | null // 해시태그
   status: PostStatus
   answerCount: number
   createdAt: string

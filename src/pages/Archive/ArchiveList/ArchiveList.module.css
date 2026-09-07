@@ -219,3 +219,7 @@
 
   font: var(--font-body2);
 }
+
+.createdAt {
+  margin-left: auto; /* 태그가 없을 때도 작성일을 오른쪽에 유지 */
+}
