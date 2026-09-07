@@ -5,7 +5,13 @@
   /* z-index: 겹치는 요소의 앞뒤 순서 → Header가 본문 섹션 위에 보이도록 설정 */
   z-index: 10;
 
-  background: var(--gray-0);
+  /* 글래스 효과
+  헤더: 배경 반투명 + 하단 연한 테두리
+  + 요소 뒤쪽은 blur로 흐리게 처리해서 메뉴 가독성 유지 */
+  background: rgb(252 253 255 / 50%);
+  border-bottom: 1px solid rgb(199 203 219 / 35%);
+  backdrop-filter: saturate(160%) blur(1rem);
+  -webkit-backdrop-filter: saturate(160%) blur(1rem);
 }
 
 /* .container의 1200px 폭 안에서 로고와 메뉴를 좌우로 배치 */
