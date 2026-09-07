@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import Header from './components/common/Header/Header'
 import Footer from './components/common/Footer/Footer'
@@ -37,8 +37,8 @@ function App() {
             <Route path=":id" element={<ArchiveDetail />} />
             <Route element={<RequireArchiveAdmin />}>
               <Route path="new" element={<ArchiveWrite />} />
-              <Route path=":id/edit" element={<ArchiveWrite />} />
             </Route>
+            <Route path="*" element={<Navigate to="/archive" replace />} />
           </Route>
         </Routes>
         </Suspense>

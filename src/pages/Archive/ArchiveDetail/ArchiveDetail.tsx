@@ -169,7 +169,6 @@ function ArchiveDetailContent({ id }: { id: string }) {
           </Link>
 
           {canManage && <div className={common.actions}>
-            <Link className={common.button} to={`/archive/${post.id}/edit`}>글 수정</Link>
             <button type="button" className={common.dangerButton} disabled={busy} onClick={() => setConfirmModalType('deletePost')}>글 삭제</button>
           </div>}
           {actionError && <p role="alert" className={common.error}>{actionError}</p>}

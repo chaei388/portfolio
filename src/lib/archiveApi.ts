@@ -48,14 +48,13 @@ export async function getPost(id: string, signal: AbortSignal) {
   return { post: toPost(post, answers.length), answers: answers.map(toAnswer) }
 }
 
-export async function savePost(input: PostInput, id?: string) {
+export async function createPost(input: PostInput) {
   const fields = {
     title: input.title.trim(), content: input.content.trim(),
     language: input.language, code_text: input.codeText, tags: input.tags,
   }
-  const table = getSupabase().from('archive_posts')
-  const request = id ? table.update(fields).eq('id', id) : table.insert(fields)
-  const { data, error } = await request.select('id').single()
+  const { data, error } = await getSupabase().from('archive_posts')
+    .insert(fields).select('id').single()
   if (error) throw error
   return data.id
 }

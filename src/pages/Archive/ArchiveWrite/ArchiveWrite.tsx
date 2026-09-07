@@ -1,52 +1,33 @@
-import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ConfirmModal from '../../../components/common/ConfirmModal/ConfirmModal'
 import Dropdown from '../../../components/common/Dropdown/Dropdown'
 import { codeLanguageOptions } from '../../../data/archiveLanguages'
 import type { CodeLanguage } from '../../../types/archive'
 import styles from './ArchiveWrite.module.css'
 import common from '../ArchiveCommon.module.css'
-import { archiveError, getPost, savePost, type SavedPost } from '../../../lib/archiveApi'
-import { useArchiveQuery } from '../../../hooks/useArchiveQuery'
+import { archiveError, createPost } from '../../../lib/archiveApi'
 import { useArchiveAuth } from '../useArchiveAuth'
 
 function ArchiveWrite() {
-  const { id } = useParams()
   const { user } = useArchiveAuth()
-  return id ? <ArchiveEdit key={`${id}:${user?.id}`} id={id} /> : <ArchivePostForm key={user?.id} />
+  return <ArchivePostForm key={user?.id} />
 }
 
-function ArchiveEdit({ id }: { id: string }) {
-  const { user, isAdmin } = useArchiveAuth()
-  const load = useCallback((signal: AbortSignal) => getPost(id, signal), [id])
-  const { data, loading, error, refresh } = useArchiveQuery(load, `${user?.id}:${isAdmin}`)
-  if (loading || error || !data || data.post.ownerId !== user?.id) return (
-    <section><div className="container">
-      <p className={common.message} role={error ? 'alert' : 'status'}>{loading ? '게시글을 불러오는 중…' : error || '수정할 게시글을 찾을 수 없습니다.'}</p>
-      {error && <button type="button" className={common.button} onClick={refresh}>다시 시도</button>}
-      <Link className={common.button} to="/archive">목록으로 돌아가기</Link>
-    </div></section>
-  )
-  return <ArchivePostForm initial={data.post} />
-}
-
-function ArchivePostForm({ initial }: { initial?: SavedPost }) {
+function ArchivePostForm() {
   const navigate = useNavigate()
   const { isAdmin, ready } = useArchiveAuth()
-  const initialTags = initial?.tags?.map((tag) => `#${tag}`).join(' ') ?? ''
-  const [title, setTitle] = useState(initial?.title ?? '')
-  const [content, setContent] = useState(initial?.content ?? '')
-  const [language, setLanguage] = useState<CodeLanguage | ''>(initial?.language ?? '')
-  const [codeText, setCodeText] = useState(initial?.codeText ?? '')
-  const [tagText, setTagText] = useState(initialTags)
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [language, setLanguage] = useState<CodeLanguage | ''>('')
+  const [codeText, setCodeText] = useState('')
+  const [tagText, setTagText] = useState('')
   const [busy, setBusy] = useState(false)
   const busyRef = useRef(false)
   const [error, setError] = useState('')
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false)
 
-  const hasDraft = title !== (initial?.title ?? '') || content !== (initial?.content ?? '')
-    || language !== (initial?.language ?? '') || codeText !== (initial?.codeText ?? '') || tagText !== initialTags
-  const returnPath = initial ? `/archive/${initial.id}` : '/archive'
+  const hasDraft = Boolean(title.trim() || content.trim() || language || codeText.trim() || tagText.trim())
 
   useEffect(() => {
     if (!hasDraft) return
@@ -79,7 +60,7 @@ function ArchivePostForm({ initial }: { initial?: SavedPost }) {
     busyRef.current = true
     setBusy(true)
     try {
-      const id = await savePost(newPost, initial?.id)
+      const id = await createPost(newPost)
       navigate(`/archive/${id}`, { replace: true })
     } catch (cause) {
       setError(archiveError(cause))
@@ -93,7 +74,7 @@ function ArchivePostForm({ initial }: { initial?: SavedPost }) {
     if (busyRef.current) return
     // 작성한 내용이 없으면 확인 없이 바로 목록으로 이동
     if (!hasDraft) {
-      navigate(returnPath)
+      navigate('/archive')
       return
     }
 
@@ -105,7 +86,7 @@ function ArchivePostForm({ initial }: { initial?: SavedPost }) {
     <>
       <section className={styles.write}>
         <div className="container">
-          <h1 className={styles.title}>{initial ? 'Archive Edit' : 'Archive Write'}</h1>
+          <h1 className={styles.title}>Archive Write</h1>
 
           <form className={styles.form} onSubmit={(event) => void handleSubmit(event)} aria-busy={busy}>
             <div className={styles.field}>
@@ -215,7 +196,7 @@ function ArchivePostForm({ initial }: { initial?: SavedPost }) {
           description="작성 중인 내용은 저장되지 않고 사라집니다."
           confirmLabel="나가기"
           onClose={() => setIsCancelModalOpen(false)}
-          onConfirm={() => navigate(returnPath)}
+          onConfirm={() => navigate('/archive')}
         />
       )}
     </>
