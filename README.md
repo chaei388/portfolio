@@ -60,6 +60,12 @@ src/
 │       ├── ContactButton/                  # GitHub, Email 플로팅 버튼
 │       │   ├── ContactButton.tsx
 │       │   └── ContactButton.module.css
+│       ├── ConfirmModal/                   # 확인/선택 액션 모달
+│       │   ├── ConfirmModal.tsx
+│       │   └── ConfirmModal.module.css
+│       ├── Dropdown/                       # 공통 드롭다운
+│       │   ├── Dropdown.tsx
+│       │   └── Dropdown.module.css
 │       ├── Modal/                          # 공통 모달 컴포넌트
 │       │   ├── Modal.tsx
 │       │   └── Modal.module.css
@@ -103,24 +109,33 @@ src/
 │
 ├── data/                                   # 정적 데이터
 │   ├── about.ts                            # About - 프로필 데이터
+│   ├── archiveAnswers.ts                   # Archive - 게시글 답변 데이터
+│   ├── archiveLanguages.ts                 # Archive - 코드 언어 옵션
+│   ├── archivePosts.ts                     # Archive - 게시글 데이터
 │   ├── skills.ts                           # Skills - 기술 스택 데이터
 │   ├── experience.ts                       # Experience - 경험 데이터
 │   ├── projects.ts                         # Projects - 프로젝트 데이터
 │   └── navigation.ts                       # Header Navigation - 메뉴 데이터
 │
 ├── hooks/                                  # 커스텀 훅
-│   └── useActiveSection.ts                 # 현재 화면 기준 active 섹션 계산
+│   ├── useActiveSection.ts                 # 현재 화면 기준 active 섹션 계산
+│   └── useRouteScroll.ts                   # 라우트 이동 시 스크롤 위치 보정
 │
 ├── lib/                                    # 외부 서비스 클라이언트
 │   └── supabaseClient.ts
 │
 ├── styles/
-│   └── var.css                             # 색상, 폰트, 레이아웃, radius 변수
+│   └── var.css                             # 색상, 폰트, 레이아웃, radius, shadow 변수
 │
-├── types/
-│   └── index.ts                            # 공통 타입
+├── types/                                  # 타입 정의
+│   ├── archive.ts                          # Archive 타입
+│   ├── experience.ts                       # Experience 타입
+│   ├── navigation.ts                       # Navigation 타입
+│   ├── project.ts                          # Project 타입
+│   ├── skill.ts                            # Skill 타입
+│   └── index.ts                            # 타입 내보내기
 │
-├── App.tsx                                 # 라우트 정의
+├── App.tsx                                 # 라우트 정의 및 스크롤 훅 연결
 ├── index.css                               # 전역 스타일
 └── main.tsx                                # React 진입점
 ```
