@@ -7,10 +7,20 @@ import Home from './pages/Home/Home'
 import ArchiveList from './pages/Archive/ArchiveList/ArchiveList'
 import ArchiveDetail from './pages/Archive/ArchiveDetail/ArchiveDetail'
 import ArchiveWrite from './pages/Archive/ArchiveWrite/ArchiveWrite'
+import { useRouteScroll } from './hooks/useRouteScroll'
+
+function RouteScrollHandler() {
+  // BrowserRouter 안에서 라우트 변경에 따른 스크롤 위치를 제어
+  useRouteScroll()
+
+  return null
+}
 
 function App() {
   return (
     <BrowserRouter>
+      <RouteScrollHandler />
+
       <Header />
 
       <main>
