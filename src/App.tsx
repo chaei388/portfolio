@@ -7,6 +7,7 @@ import Home from './pages/Home/Home'
 import ArchiveList from './pages/Archive/ArchiveList/ArchiveList'
 import ArchiveDetail from './pages/Archive/ArchiveDetail/ArchiveDetail'
 import ArchiveWrite from './pages/Archive/ArchiveWrite/ArchiveWrite'
+import ArchiveLayout, { RequireArchiveAdmin } from './pages/Archive/ArchiveLayout'
 import { useRouteScroll } from './hooks/useRouteScroll'
 
 function RouteScrollHandler() {
@@ -26,9 +27,13 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/archive" element={<ArchiveList />} />
-          <Route path="/archive/new" element={<ArchiveWrite />} />
-          <Route path="/archive/:id" element={<ArchiveDetail />} />
+          <Route path="/archive" element={<ArchiveLayout />}>
+            <Route index element={<ArchiveList />} />
+            <Route path=":id" element={<ArchiveDetail />} />
+            <Route element={<RequireArchiveAdmin />}>
+              <Route path="new" element={<ArchiveWrite />} />
+            </Route>
+          </Route>
         </Routes>
       </main>
 
