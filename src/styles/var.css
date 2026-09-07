@@ -39,12 +39,15 @@
   /* Layout */
   --header-height: 4.5rem; /* 72px */
 
-  /* Shadow */
-  --shadow-card: 0 0.75rem 2rem rgb(79 118 196 / 8%);
-
   /* Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-pill: 999px;
+
+  /* Shadow (카드) */
+  --shadow-card: 0 0.75rem 2rem rgb(79 118 196 / 8%);
+
+  /* Background (카드) */
+  --background-card: rgb(252 253 255 / 72%);
 }

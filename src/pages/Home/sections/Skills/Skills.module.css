@@ -71,7 +71,7 @@
   padding: 1rem; /* 16px */
 
   /* 글래스 효과: 반투명 배경 + blur + 연한 테두리 */
-  background: rgb(252 253 255 / 70%);
+  background: var(--background-card);
   border: 1px solid var(--gray-100);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
