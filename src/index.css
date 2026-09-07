@@ -49,10 +49,17 @@ html {
 }
 
 body {
+  position: relative;
+
   font-family: var(--font-pretendard);
 
   color: var(--gray-900);
   background: var(--gray-0);
+
+  /* overflow-x: hidden로 설정했더니 헤더(position: sticky)가 같이 스크롤되는 문제 발생
+  → overflow-x: clip으로 변경! clip 속성은 화면 너비를 넘어간 가로 영역만 잘라내고, 
+  hidden처럼 별도 스크롤 컨테이너를 만들지 않으므로 sticky 기준에 영향 X */
+  overflow-x: clip;
 }
 
 a {
@@ -73,7 +80,7 @@ ul, ol {
 
 section {
   /* 스크롤 이동 확인 가능하도록 섹션 기본 높이 설정
-    --header-height는 Header 높이, 한 섹션이 한 화면씩 보이도록 계산 */
+  --header-height는 Header 높이, 한 섹션이 한 화면씩 보이도록 계산 */
   min-height: calc(100vh - var(--header-height));
   padding: 6rem 0; /* 96px */
 
@@ -83,9 +90,67 @@ section {
 
 .container {
   /* min(): 두 값 중 더 작은 값 선택
-    화면이 넓으면 최대 1200px, 좁으면 좌우 24px씩 남긴 너비를 사용 */
+  화면이 넓으면 최대 1200px, 좁으면 좌우 24px씩 남긴 너비를 사용 */
   width: min(1200px, calc(100% - 3rem)); /* 48px */
 
   /* 좌우 margin auto로 container를 화면 중앙에 배치 */
   margin: 0 auto;
+}
+
+
+
+/* --- 움직이는 배경 효과 영역 --- */
+body::before {
+  /* ::before: body 안에 실제 태그를 추가하지 않고 CSS로 만드는 배경 레이어
+  position: fixed로 스크롤과 상관없이 브라우저 화면 전체를 덮도록 설정 */
+  content: '';
+
+  position: fixed;
+  inset: 0; /* top/right/bottom/left를 모두 0으로 설정해 화면 전체 채우기 */
+  z-index: 0;
+
+  /* pointer-events: none
+    배경 레이어가 버튼, 링크, 모달 클릭을 막지 않도록 마우스 이벤트 제외 */
+  pointer-events: none;
+
+  /* radial-gradient 대신 큰 선형 그라데이션을 겹쳐서 부드러운 빛 흐름만 표현 */
+  background:
+    linear-gradient(
+      115deg,
+      var(--gray-0) 0%,
+      var(--blue-50) 24%,
+      var(--yellow-50) 48%,
+      var(--blue-100) 72%,
+      var(--gray-0) 100%
+    ),
+    linear-gradient(
+      65deg,
+      var(--gray-0) 0%,
+      var(--blue-50) 45%,
+      var(--gray-0) 100%
+    );
+  background-size: 240% 240%, 180% 180%;
+  opacity: 0.72;
+  animation: auroraBackground 22s ease-in-out infinite alternate;
+}
+
+#root {
+  /* body::before(배경 효과)보다 콘텐츠를 위에 올리기 위한 설정
+  z-index는 position이 있는 요소에서 적용되므로 relative를 함께 사용 */
+  position: relative;
+  z-index: 1;
+}
+
+/* auroraBackground 애니메이션 설정
+body::before에 적용한 그라데이션 효과의 위치를 이동시키는 애니메이션 */
+@keyframes auroraBackground {
+  from { background-position: 0% 50%, 100% 50%; }
+  to { background-position: 100% 50%, 0% 50%; }
+}
+
+/* 움직임 줄이기를 선호하는 사용자 환경에서는 배경 애니메이션 정지 */
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
 }
