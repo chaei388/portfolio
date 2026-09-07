@@ -1,0 +1,147 @@
+.contactButton {
+  position: fixed; /* 스크롤해도 브라우저 창 기준 같은 위치에 고정 (플로팅버튼) */
+  left: 50%;
+  bottom: 2rem; /* 32px */
+  z-index: 20;
+
+  display: grid; /* GitHub / Email 같은 너비의 2칸 배치 */
+  grid-template-columns: repeat(2, 7rem); /* 112px */
+
+  width: max-content;
+  max-width: calc(100% - 3rem); /* 48px */
+  padding: 0.25rem; /* 4px */
+  overflow: hidden;
+  isolation: isolate;
+
+  background: rgb(252 253 255 / 32%);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
+
+  /* filter: 요소 전체에 시각 효과 입히는 CSS 속성
+  drop-shadow: 요소 실제 모양 따라 그림자 만들기 (box-shadow는 사각형 모양대로...)*/
+  filter: drop-shadow(0 4px 4px rgb(0 0 0 / 25%));
+
+  transform: translateX(-50%);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* 전체 배경 위에 블루톤 그라데이션만 얹는 레이어 */
+.contactButton::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background: linear-gradient(
+    135deg,
+    var(--blue-100) 0%,
+    var(--blue-300) 58%,
+    var(--blue-500) 100%
+  );
+
+  opacity: 0.32;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 1rem); /* 아래쪽으로 16px 내려가며 자연스럽게 사라짐 */
+}
+
+.activeBackground {
+  position: absolute;
+  z-index: 1;
+  top: 0.25rem; /* 4px */
+  bottom: 0.25rem; /* 4px */
+  left: 0.25rem; /* 4px */
+
+  width: calc((100% - 0.5rem) / 2); /* 전체 폭에서 좌우 padding 8px 제외 후 2등분 */
+
+  background: rgb(252 253 255 / 48%);
+  border: 1px solid rgb(252 253 255 / 54%);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
+  opacity: 0;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s ease;
+}
+
+.contactButton[data-active='github'] .activeBackground,
+.contactButton[data-active='email'] .activeBackground {
+  opacity: 1;
+}
+
+.contactButton[data-active='email'] .activeBackground {
+  transform: translateX(100%);
+}
+
+.link {
+  position: relative; /* activeBackground보다 위에 텍스트와 아이콘 표시 */
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* 8px */
+
+  min-height: 3rem; /* 48px */
+  padding: 0 0.75rem; /* 12px */
+
+  font: var(--font-body3);
+  color: var(--gray-900);
+  border-radius: var(--radius-pill);
+
+  transition:
+    color 0.25s ease,
+    background 0.25s ease;
+}
+
+.link:hover {
+  background: rgb(252 253 255 / 16%);
+  color: var(--gray-900);
+}
+
+.contactButton[data-active='github'] .link,
+.contactButton[data-active='email'] .link {
+  color: var(--gray-0); /* 하나가 활성화되면 미선택 링크는 흰색으로 표시 */
+}
+
+.contactButton[data-active='github'] .activeLink,
+.contactButton[data-active='email'] .activeLink {
+  color: var(--gray-900); /* 활성화된 링크는 다시 검정색으로 표시 */
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--blue-700);
+  outline-offset: -0.25rem; /* -4px */
+}
+
+.activeLink {
+  color: var(--gray-900);
+}
+
+.icon {
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+
+  display: block;
+  filter: none;
+  transition: filter 0.25s ease;
+}
+
+.contactButton[data-active='github'] .icon,
+.contactButton[data-active='email'] .icon {
+  filter: brightness(0) invert(1); /* 하나가 활성화되면 미선택 아이콘은 흰색으로 표시 */
+}
+
+.contactButton[data-active='github'] .activeLink .icon,
+.contactButton[data-active='email'] .activeLink .icon {
+  filter: none;
+}
