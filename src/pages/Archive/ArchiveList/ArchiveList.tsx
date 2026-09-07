@@ -168,7 +168,7 @@ function ArchiveList() {
           description={`언제든 다시 ${getStatusLabel(
             targetPost.status,
           )}로 변경할 수 있습니다.`}
-          onCancel={() => setTargetPostId(null)}
+          onClose={() => setTargetPostId(null)}
           onConfirm={handleStatusConfirm}
         />
       )}
