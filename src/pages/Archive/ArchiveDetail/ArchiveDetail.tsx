@@ -1,13 +1,14 @@
-import { useState, type FormEvent } from 'react'
+import { useCallback, useRef, useState, type FormEvent } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import ConfirmModal from '../../../components/common/ConfirmModal/ConfirmModal'
-import { archiveAnswers } from '../../../data/archiveAnswers'
 import { codeLanguageOptions } from '../../../data/archiveLanguages'
-import { archivePosts } from '../../../data/archivePosts'
+import { archiveError, deleteAnswer, deletePost, getPost, saveAnswer as insertAnswer, setPostStatus } from '../../../lib/archiveApi'
+import { useArchiveQuery } from '../../../hooks/useArchiveQuery'
+import { useArchiveAuth } from '../useArchiveAuth'
+import common from '../ArchiveCommon.module.css'
 import type {
-  Answer,
   AnswerBlock,
   CodeLanguage,
   PostStatus,
@@ -16,22 +17,13 @@ import solvedIcon from '../../../assets/icons/check_solved.svg'
 import unsolvedIcon from '../../../assets/icons/check_unsolved.svg'
 import styles from './ArchiveDetail.module.css'
 
-type ConfirmModalType = 'status' | 'answer' | null
+type ConfirmModalType = 'status' | 'answer' | 'deletePost' | 'deleteAnswer' | null
 
 const getNextStatus = (status: PostStatus): PostStatus =>
   status === 'solved' ? 'unsolved' : 'solved'
 
 const getStatusLabel = (status: PostStatus) =>
   status === 'solved' ? '해결완료' : '미해결'
-
-const getTodayText = () => {
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = String(today.getMonth() + 1).padStart(2, '0')
-  const date = String(today.getDate()).padStart(2, '0')
-
-  return `${year}.${month}.${date}`
-}
 
 const getCodeLanguageLabel = (language: CodeLanguage | null) =>
   language
@@ -71,18 +63,31 @@ function AnswerBlock({ block }: { block: AnswerBlock }) {
 
 function ArchiveDetail() {
   const { id } = useParams()
-  const post = archivePosts.find((archivePost) => archivePost.id === id)
-  const savedAnswers = archiveAnswers.filter(
-    (answer) => answer.postId === id,
-  )
+  const { user } = useArchiveAuth()
+  return <ArchiveDetailContent key={`${id}:${user?.id ?? 'visitor'}`} id={id ?? ''} />
+}
 
-  // 상세 화면에서 먼저 상태 전환을 확인하기 위한 로컬 상태
-  const [statusById, setStatusById] = useState<Record<string, PostStatus>>({})
+function ArchiveDetailContent({ id }: { id: string }) {
+  const navigate = useNavigate()
+  const { user, isAdmin, ready } = useArchiveAuth()
+  const load = useCallback((signal: AbortSignal) => getPost(id, signal), [id])
+  const { data, loading, error, refresh } = useArchiveQuery(load, `${ready}:${user?.id}:${isAdmin}`)
+  const post = data?.post
   const [confirmModalType, setConfirmModalType] =
     useState<ConfirmModalType>(null)
   const [answerInput, setAnswerInput] = useState('')
   const [pendingAnswer, setPendingAnswer] = useState('')
-  const [localAnswers, setLocalAnswers] = useState<Answer[]>([])
+  const [targetAnswerId, setTargetAnswerId] = useState<string | null>(null)
+  const [busy, setBusy] = useState(false)
+  const busyRef = useRef(false)
+  const [actionError, setActionError] = useState('')
+
+  if (loading || error) return (
+    <section className={styles.detail}><div className="container">
+      {loading ? <p role="status" className={common.message}>게시글을 불러오는 중…</p> : <div role="alert"><p className={common.error}>{error}</p><button className={common.button} onClick={refresh}>다시 시도</button></div>}
+      <Link to="/archive" className={styles.backLink}>목록으로 돌아가기</Link>
+    </div></section>
+  )
 
   if (!post) {
     return (
@@ -101,49 +106,42 @@ function ArchiveDetail() {
     )
   }
 
-  const currentStatus = statusById[post.id] ?? post.status
+  const canManage = ready && isAdmin && user?.id === post.ownerId
+  const currentStatus = post.status
   const nextStatus = getNextStatus(currentStatus)
   const isSolved = currentStatus === 'solved'
   const statusLabel = getStatusLabel(currentStatus)
   const statusIcon = isSolved ? solvedIcon : unsolvedIcon
-  const postAnswers = [
-    ...savedAnswers,
-    ...localAnswers.filter((answer) => answer.postId === post.id),
-  ]
+  const postAnswers = data?.answers ?? []
 
-  const handleStatusConfirm = () => {
-    setStatusById((currentStatusById) => ({
-      ...currentStatusById,
-      [post.id]: nextStatus,
-    }))
-    setConfirmModalType(null)
+  const runMutation = async (operation: () => Promise<unknown>, onSuccess?: () => void) => {
+    if (!canManage || busyRef.current) return
+    busyRef.current = true
+    setBusy(true)
+    setActionError('')
+    try {
+      await operation()
+      setConfirmModalType(null)
+      onSuccess?.()
+      refresh()
+    } catch (cause) {
+      setActionError(archiveError(cause))
+      setConfirmModalType(null)
+    } finally {
+      busyRef.current = false
+      setBusy(false)
+    }
   }
 
   const saveAnswer = (shouldMarkSolved: boolean) => {
-    // 추후 Supabase 연동 시 이 부분을 insert 요청으로 교체
-    setLocalAnswers((currentAnswers) => [
-      ...currentAnswers,
-      {
-        id: `local-answer-${Date.now()}`,
-        postId: post.id,
-        blocks: [{ type: 'paragraph', text: pendingAnswer }],
-        createdAt: getTodayText(),
-      },
-    ])
-
-    if (shouldMarkSolved) {
-      setStatusById((currentStatusById) => ({
-        ...currentStatusById,
-        [post.id]: 'solved',
-      }))
-    }
-
-    setAnswerInput('')
-    setPendingAnswer('')
-    setConfirmModalType(null)
+    void runMutation(() => insertAnswer(post.id, [{ type: 'paragraph', text: pendingAnswer }], shouldMarkSolved), () => {
+      setAnswerInput('')
+      setPendingAnswer('')
+    })
   }
 
   const closeAnswerConfirmModal = () => {
+    if (busyRef.current) return
     setPendingAnswer('')
     setConfirmModalType(null)
   }
@@ -153,7 +151,7 @@ function ArchiveDetail() {
 
     const trimmedAnswer = answerInput.trim()
 
-    if (!trimmedAnswer) {
+    if (!trimmedAnswer || !canManage || busyRef.current) {
       return
     }
 
@@ -170,6 +168,12 @@ function ArchiveDetail() {
             목록으로
           </Link>
 
+          {canManage && <div className={common.actions}>
+            <Link className={common.button} to={`/archive/${post.id}/edit`}>글 수정</Link>
+            <button type="button" className={common.dangerButton} disabled={busy} onClick={() => setConfirmModalType('deletePost')}>글 삭제</button>
+          </div>}
+          {actionError && <p role="alert" className={common.error}>{actionError}</p>}
+
           <article className={styles.postCard}>
             <header className={styles.postHeader}>
               <div>
@@ -182,11 +186,12 @@ function ArchiveDetail() {
 
             <button
               type="button"
+              disabled={!canManage || busy}
               className={`${styles.statusButton} ${
                 isSolved ? styles.solvedStatus : styles.unsolvedStatus
               }`}
               onClick={() => setConfirmModalType('status')}
-              aria-label={`${post.title} ${getStatusLabel(nextStatus)} 처리`}
+              aria-label={canManage ? `${post.title} ${getStatusLabel(nextStatus)} 처리` : `${post.title} ${statusLabel}`}
             >
               <img src={statusIcon} alt="" className={styles.statusIcon} />
               <span>{statusLabel}</span>
@@ -219,19 +224,23 @@ function ArchiveDetail() {
           <section className={styles.answerSection}>
             <h2 className={styles.answerTitle}>답변</h2>
 
-            <form className={styles.answerForm} onSubmit={handleAnswerSubmit}>
-              <input
-                type="text"
+            {canManage && <form className={styles.answerForm} onSubmit={handleAnswerSubmit}>
+              <textarea
                 className={styles.answerInput}
                 value={answerInput}
                 onChange={(event) => setAnswerInput(event.target.value)}
-                placeholder="답변을 작성해주세요."
+                placeholder="답변을 작성해주세요. Markdown과 코드블록을 사용할 수 있습니다."
                 aria-label="답변 작성"
+                rows={3}
+                maxLength={50000}
+                required
+                disabled={busy}
               />
-              <button type="submit" className={styles.saveButton}>
-                저장
+              <button type="submit" className={styles.saveButton} disabled={busy || !answerInput.trim()}>
+                {busy ? '저장 중…' : '저장'}
               </button>
-            </form>
+            </form>}
+            {postAnswers.length === 0 && <p className={common.message}>아직 작성된 답변이 없습니다.</p>}
 
             <ul className={styles.answerList}>
               {postAnswers.map((answer) => (
@@ -248,6 +257,7 @@ function ArchiveDetail() {
                         >
                           작성일 {answer.createdAt}
                         </time>
+                        {canManage && answer.ownerId === user?.id && <button type="button" className={common.dangerButton} disabled={busy} onClick={() => { setTargetAnswerId(answer.id); setConfirmModalType('deleteAnswer') }}>답변 삭제</button>}
                       </header>
 
                       <div className={styles.answerBody}>
@@ -267,29 +277,42 @@ function ArchiveDetail() {
         </div>
       </section>
 
-      {confirmModalType === 'status' && (
+      {canManage && confirmModalType === 'status' && (
         <ConfirmModal
           title={`${getStatusLabel(nextStatus)} 처리하시겠습니까?`}
           description={`언제든 다시 ${getStatusLabel(
             currentStatus,
           )}로 변경할 수 있습니다.`}
-          onClose={() => setConfirmModalType(null)}
-          onConfirm={handleStatusConfirm}
+          confirmLabel={busy ? '저장 중…' : '확인'}
+          onClose={() => { if (!busyRef.current) setConfirmModalType(null) }}
+          onConfirm={() => void runMutation(() => setPostStatus(post.id, nextStatus))}
         />
       )}
 
-      {confirmModalType === 'answer' && (
+      {canManage && confirmModalType === 'answer' && (
         <ConfirmModal
           title="해결완료 처리하시겠습니까?"
           description="답변은 저장됩니다. 해결완료를 선택하면 게시글 상태도 함께 변경됩니다."
           cancelLabel="취소"
-          secondaryLabel="그냥 저장"
-          confirmLabel="해결완료"
+          secondaryLabel={busy ? '저장 중…' : '그냥 저장'}
+          confirmLabel={busy ? '저장 중…' : '해결완료'}
           onClose={closeAnswerConfirmModal}
           onSecondary={() => saveAnswer(false)}
           onConfirm={() => saveAnswer(true)}
         />
       )}
+      {canManage && confirmModalType === 'deletePost' && <ConfirmModal
+        title="게시글을 삭제하시겠습니까?" description="게시글과 연결된 답변이 함께 삭제됩니다. 삭제한 내용은 복구할 수 없습니다."
+        confirmLabel={busy ? '삭제 중…' : '삭제'}
+        onClose={() => { if (!busyRef.current) setConfirmModalType(null) }}
+        onConfirm={() => void runMutation(() => deletePost(post.id), () => navigate('/archive', { replace: true }))}
+      />}
+      {canManage && confirmModalType === 'deleteAnswer' && targetAnswerId && <ConfirmModal
+        title="답변을 삭제하시겠습니까?" description="삭제한 답변은 복구할 수 없습니다. 게시글의 해결 상태는 유지됩니다."
+        confirmLabel={busy ? '삭제 중…' : '삭제'}
+        onClose={() => { if (!busyRef.current) setConfirmModalType(null) }}
+        onConfirm={() => void runMutation(() => deleteAnswer(targetAnswerId))}
+      />}
     </>
   )
 }

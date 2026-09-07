@@ -2,6 +2,28 @@
   min-height: calc(100vh - var(--header-height));
 }
 
+.detail .statusButton:disabled { cursor: default; opacity: 1; }
+.statusButton:disabled:hover .statusIcon { transform: none; }
+.detail .answerSection { min-height: 0; padding: 0; }
+.detail .answerInput { border-radius: var(--radius-md); resize: vertical; }
+.detail .content { white-space: pre-wrap; overflow-wrap: anywhere; }
+.detail .postCard { margin-top: 1rem; }
+.markdownText { overflow-wrap: anywhere; }
+.markdownText pre { overflow-x: auto; padding: 1rem; margin: 1rem 0; border-radius: var(--radius-md); background: var(--gray-900); }
+.markdownText pre code { padding: 0; background: transparent; color: var(--gray-0); }
+.markdownText p + p { margin-top: 0.75rem; }
+.markdownText ul, .markdownText ol { padding-left: 1.5rem; list-style: revert; }
+.markdownText a { color: var(--blue-700); text-decoration: underline; }
+.markdownText table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+.markdownText td, .markdownText th { padding: 0.5rem; border: 1px solid var(--gray-300); }
+.markdownText img { max-width: 100%; }
+@media (max-width: 600px) {
+  .detail .postCard { padding: 1.25rem; }
+  .detail .statusButton { right: 1.25rem; }
+  .detail .answerForm { flex-direction: column; align-items: stretch; }
+  .detail .answerHeader, .detail .postMeta { flex-wrap: wrap; }
+}
+
 .backLink {
   display: inline-flex; /* 텍스트 링크를 버튼처럼 다루기 위한 inline flex */
   align-items: center;
