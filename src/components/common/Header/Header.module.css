@@ -11,7 +11,6 @@
   background: rgb(252 253 255 / 50%);
   border-bottom: 1px solid rgb(199 203 219 / 35%);
   backdrop-filter: saturate(160%) blur(1rem);
-  -webkit-backdrop-filter: saturate(160%) blur(1rem);
 }
 
 /* .container의 1200px 폭 안에서 로고와 메뉴를 좌우로 배치 */
