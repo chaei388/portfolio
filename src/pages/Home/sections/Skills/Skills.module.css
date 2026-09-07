@@ -1,0 +1,93 @@
+.title {
+  font: var(--font-h1);
+}
+
+.groupList {
+  display: grid; /* 카테고리 묶음을 행/열 기준으로 배치 (위치 잡는 용도) */
+  grid-template-columns: repeat(12, 1fr); /* 12칸, 가로폭 12등분 */
+  gap: 2.5rem 1.5rem; /* 40px 24px */
+
+  margin-top: 3rem; /* 48px */
+}
+
+.group {
+  display: flex;
+  flex-direction: column; /* 카테고리명 아래에 스킬 카드 목록 배치 */
+  gap: 1rem; /* 16px */
+}
+
+/* Language */
+.group:nth-child(1) {
+  grid-column: 1 / span 7;
+}
+
+/* Frontend */
+.group:nth-child(2) {
+  grid-column: 1 / span 8;
+}
+
+/* Backend */
+.group:nth-child(3) {
+  grid-column: 1 / span 4;
+}
+
+/* Database */
+.group:nth-child(4) {
+  grid-column: 5 / span 4;
+}
+
+/* DevOps */
+.group:nth-child(5) {
+  grid-column: 1 / span 12;
+}
+
+/* Tools */
+.group:nth-child(6) {
+  grid-column: 1 / span 12;
+}
+
+.groupTitle {
+  font: var(--font-h2);
+  color: var(--blue-900);
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap; /* 스킬 카드가 많으면 다음 줄로 자연스럽게 내려감 */
+  gap: 0.75rem; /* 12px */
+}
+
+.skillItem {
+  /* 스택 하나당 하나의 카드 + 카드 크기 고정 */
+  width: 7.25rem; /* 116px */
+  height: 7.25rem; /* 116px */
+
+  display: flex;
+  flex-direction: column; /* 아이콘 위, 이름 아래 */
+  align-items: center; /* 가로축 가운데 정렬 */
+  justify-content: center; /* 세로축 가운데 정렬 */
+  gap: 0.75rem; /* 12px */
+
+  padding: 1rem; /* 16px */
+
+  /* 글래스 효과: 반투명 배경 + blur + 연한 테두리 */
+  background: rgb(252 253 255 / 70%);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0.75rem 2rem rgb(79 118 196 / 8%);
+  backdrop-filter: blur(1rem);
+}
+
+.skillIcon {
+  width: 3rem; /* 48px */
+  height: 3rem; /* 48px */
+
+  object-fit: contain; /* 아이콘 원본 비율 유지 */
+  display: block;
+}
+
+.skillName {
+  font: var(--font-small);
+  color: var(--blue-900);
+  text-align: center;
+}
