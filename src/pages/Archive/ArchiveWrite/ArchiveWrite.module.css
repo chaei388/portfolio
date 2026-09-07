@@ -1,1 +1,158 @@
+.write {
+  min-height: calc(100vh - var(--header-height));
+}
 
+.title {
+  font: var(--font-h1);
+  color: var(--gray-900);
+}
+
+.form {
+  display: flex; /* 입력 영역을 위에서 아래로 쌓는 폼 기본 구조 */
+  flex-direction: column;
+  gap: 2rem; /* 32px */
+
+  margin-top: 2rem; /* 32px */
+  padding: 2rem; /* 32px */
+
+  background: var(--background-card);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(1rem);
+}
+
+.field {
+  display: flex; /* 라벨과 입력창을 세로로 배치 */
+  flex-direction: column;
+  gap: 0.75rem; /* 12px */
+}
+
+.label {
+  display: inline-flex; /* 라벨 텍스트와 필수 표시(*)를 한 줄에 배치 */
+  align-items: center;
+  gap: 0.25rem; /* 4px */
+
+  font: var(--font-body2);
+  color: var(--gray-900);
+}
+
+.requiredMark {
+  color: var(--red-700);
+}
+
+.input,
+.textarea {
+  width: 100%;
+
+  font: var(--font-body3);
+  color: var(--gray-900);
+  background: var(--gray-0);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input {
+  min-height: 3rem; /* 48px */
+  padding: 0 1rem; /* 16px */
+}
+
+.textarea {
+  min-height: 12rem; /* 192px */
+  padding: 1rem; /* 16px */
+  resize: vertical; /* 세로 크기만 조절 가능 */
+}
+
+.codeTextarea {
+  min-height: 14rem; /* 224px */
+
+  font-family: Consolas, 'Courier New', monospace;
+  line-height: 1.7;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--gray-500);
+}
+
+.input:hover,
+.textarea:hover {
+  background: var(--blue-50);
+}
+
+.input:focus,
+.textarea:focus {
+  background: var(--gray-0);
+  border-color: var(--blue-500);
+  outline: none;
+  box-shadow: 0 0 0 0.25rem rgb(125 169 255 / 20%); /* 4px */
+}
+
+.codeLabelRow {
+  display: flex; /* 코드 라벨과 언어 선택 드롭다운을 한 줄에 배치 */
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem; /* 16px */
+}
+
+.languageDropdown {
+  width: 12rem; /* 192px */
+  flex-shrink: 0; /* 라벨 영역이 길어져도 드롭다운 너비 유지 */
+}
+
+.actions {
+  display: flex; /* 취소/저장 버튼을 오른쪽에 나란히 배치 */
+  justify-content: flex-end;
+  gap: 0.75rem; /* 12px */
+}
+
+.cancelButton,
+.saveButton {
+  padding: 0.625rem 1rem; /* 10px 16px */
+
+  border-radius: var(--radius-pill);
+  font: var(--font-body2);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.cancelButton {
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+  background: var(--gray-0);
+}
+
+.cancelButton:hover {
+  color: var(--gray-900);
+  border-color: var(--gray-500);
+  background: var(--gray-100);
+}
+
+.saveButton {
+  color: var(--gray-900);
+  border: 1px solid var(--blue-300);
+  background: var(--blue-100);
+}
+
+.saveButton:hover {
+  border-color: var(--blue-500);
+  background: var(--blue-300);
+}
+
+.cancelButton:focus-visible,
+.saveButton:focus-visible {
+  outline: 2px solid var(--blue-700);
+  outline-offset: 0.25rem; /* 4px */
+}
+
+.submitMessage {
+  font: var(--font-small);
+  color: var(--gray-500);
+  text-align: right;
+}
