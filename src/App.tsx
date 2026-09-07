@@ -32,6 +32,7 @@ function App() {
             <Route path=":id" element={<ArchiveDetail />} />
             <Route element={<RequireArchiveAdmin />}>
               <Route path="new" element={<ArchiveWrite />} />
+              <Route path=":id/edit" element={<ArchiveWrite />} />
             </Route>
           </Route>
         </Routes>
