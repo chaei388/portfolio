@@ -22,7 +22,7 @@
   overflow: hidden; /* 모달 바깥으로 내용 넘치지 않게 제한 */
 
   background: var(--gray-0);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
 }
 
 .header {

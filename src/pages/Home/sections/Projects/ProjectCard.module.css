@@ -11,7 +11,7 @@
 
   background: var(--gray-0);
   border: 1px solid var(--gray-100);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
 }
 
 /* 카드 왼쪽 영역 (이미지) */
@@ -24,7 +24,7 @@
   overflow: hidden;
 
   background: var(--gray-100);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
 }
 
 /* 카드 왼쪽에 들어가는 대표 이미지 */
@@ -137,5 +137,5 @@
   padding: 0.5rem 0.75rem; /* 8px 12px */
 
   border: 1px solid var(--gray-300);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
 }

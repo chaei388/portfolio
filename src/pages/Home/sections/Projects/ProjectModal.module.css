@@ -32,7 +32,7 @@
   height: 2.5rem; /* 40px */
 
   border: 1px solid var(--gray-300);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
 }
 
 
