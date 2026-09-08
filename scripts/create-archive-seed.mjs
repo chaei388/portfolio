@@ -1,6 +1,7 @@
 import { writeFileSync } from 'node:fs'
 import { archivePosts } from '../src/data/archivePosts.ts'
 import { archiveAnswers } from '../src/data/archiveAnswers.ts'
+import { archiveAnswerFields } from './lib/archive-answer-fields.mjs'
 
 // Auth에서 관리자 계정을 만든 뒤 SQL Editor에서 실행. 내용과 기존 URL을 보존함.
 const quote = (value) => value == null ? 'null' : `'${String(value).replaceAll("'", "''")}'`
@@ -17,8 +18,9 @@ for (const post of archivePosts) {
 values (${quote(post.id)}, ${quote(adminId)}, ${quote(post.title)}, ${quote(post.content)}, ${quote(post.language)}, ${quote(post.codeText)}, ${post.tags ? `array[${post.tags.map(quote).join(', ')}]::text[]` : 'null'}, ${quote(post.status)}, ${date(post.createdAt)}) on conflict (id) do nothing;`)
 }
 for (const answer of archiveAnswers) {
-  sql.push(`insert into public.archive_answers (id, post_id, owner_id, blocks, created_at)
-values (${quote(answer.id)}, ${quote(answer.postId)}, ${quote(adminId)}, ${quote(JSON.stringify(answer.blocks))}::jsonb, ${date(answer.createdAt)}) on conflict (id) do nothing;`)
+  const fields = archiveAnswerFields(answer.blocks)
+  sql.push(`insert into public.archive_answers (id, post_id, owner_id, content, language, code_text, created_at)
+values (${quote(answer.id)}, ${quote(answer.postId)}, ${quote(adminId)}, ${quote(fields.content)}, ${quote(fields.language)}, ${quote(fields.codeText)}, ${date(answer.createdAt)}) on conflict (id) do nothing;`)
 }
 sql.push('commit;')
 writeFileSync(new URL('../supabase/seed.sql', import.meta.url), sql.join('\n\n') + '\n')

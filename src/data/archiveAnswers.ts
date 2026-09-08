@@ -1,6 +1,11 @@
-import type { Answer } from '../types/archive'
+import type { Answer, CodeLanguage } from '../types/archive'
 
-export const archiveAnswers: Answer[] = [
+// 이관 검증용 원본. 실제 Archive 답변은 content/language/codeText를 사용함.
+type LegacyAnswer = Pick<Answer, 'id' | 'postId' | 'createdAt'> & {
+  blocks: ({ type: 'paragraph'; text: string } | { type: 'code'; language: CodeLanguage; codeText: string })[]
+}
+
+export const archiveAnswers: LegacyAnswer[] = [
   {
     id: 'backdrop-filter-deploy-answer-1',
     postId: 'backdrop-filter-deploy',
