@@ -1,4 +1,4 @@
--- scripts/create-archive-seed.mjs로 생성. 원본 글/답변을 수정해도 재실행 시 기존 DB 내용을 덮어쓰지 않음.
+-- 기존 Supabase 프로젝트에 적용한 초기 데이터 기록. 같은 ID가 있으면 기존 DB 내용을 덮어쓰지 않음.
 
 begin;
 

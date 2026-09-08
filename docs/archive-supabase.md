@@ -25,9 +25,7 @@ Vercel 프로젝트의 Settings → Environment Variables에도 위 두 변수�
 4. `supabase/seed.sql`을 실행한다. 지정한 Auth UID와 이메일 인증을 확인한 뒤 관리자 권한, 글 3개, 답변 3개를 등록한다.
 5. Archive의 관리자 로그인으로 로그인하고 작성/삭제, 해결 상태 전환과 로그아웃을 확인한다.
 
-현재 초기 데이터의 관리자 UID는 `7d2bc12a-4449-443a-9bb0-8442fe89db9f`이다. 다른 프로젝트에서 사용할 때는 `scripts/create-archive-seed.mjs`의 관리자 UID와 확인용 이메일을 변경하고 `node scripts/create-archive-seed.mjs`로 SQL을 다시 생성한다. Node 24에서 실행할 수 있다.
-
-초기 데이터 SQL은 같은 ID가 이미 있으면 내용을 덮어쓰지 않는다. 기존 주소와 작성일, 답변의 문단/코드 순서를 보존한다. 마지막 코드블록은 `code_text`로, 중간 코드블록은 Markdown 본문으로 옮긴다. `src/data/archivePosts.ts`와 `archiveAnswers.ts`는 이관 원본으로 보존하며 실제 화면에서는 import하지 않는다.
+`supabase/seed.sql`은 기존 Supabase 프로젝트에 적용한 초기 데이터 기록으로 유지한다. 기존 주소와 작성일, 답변의 문단/코드 순서를 보존하며 같은 ID가 이미 있으면 내용을 덮어쓰지 않는다. `src/data/archivePosts.ts`와 `archiveAnswers.ts`도 과거 게시글과 답변의 기록으로만 보존하고 실제 화면에서는 import하지 않는다.
 
 ## 권한과 데이터
 
@@ -77,14 +75,6 @@ npm run lint
 ```
 
 `supabase/tests/archive_rls.sql`을 PostgreSQL 관리자 연결 또는 SQL Editor에서 실행하면 방문자/일반 계정/관리자의 권한, 비공개 답변 노출 방지, 내용 수정 차단, 기본값과 선택 코드, 답변·해결 상태 트랜잭션, 삭제 후 답변 정리를 검증한다. 테스트 데이터와 변경은 마지막에 롤백된다.
-
-현재 프로젝트의 공개 API와 초기 데이터 이관 결과를 확인하려면 다음을 실행한다. 원본 데이터와 비교하므로 기존 글·답변을 삭제하거나 원본 글에 답변을 추가한 뒤에는 비교 결과가 달라질 수 있다.
-
-```sh
-node --env-file=.env.local scripts/verify-archive.mjs
-```
-
-`ARCHIVE_TEST_EMAIL`, `ARCHIVE_TEST_PASSWORD`를 프로세스 환경변수에 설정하고 `--write`를 붙이면 별도의 임시 글로 로그인, 작성, 내용 수정 차단, 공개/비공개 조회, 선택 코드 답변, 해결 상태 전환, 삭제까지 검증한다. 스크립트는 자신이 생성한 임시 글과 답변만 정리하고 인증 토큰과 비밀번호를 출력하지 않는다.
 
 브라우저에서는 다음을 확인한다.
 
