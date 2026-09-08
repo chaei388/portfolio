@@ -29,6 +29,7 @@ One Page Portfolio + Archive Pages
 
 - Home은 정적 데이터로 유지하며, Archive에만 Supabase Auth와 DB를 연결합니다.
 - 방문자는 공개 글과 답변을 조회하고, 등록된 관리자만 글과 답변을 관리합니다.
+- 글·답변은 작성과 삭제만 가능하며, 게시글의 해결 상태는 변경할 수 있습니다. 답변도 본문과 선택 코드로 저장합니다.
 - 환경변수, DB 초기 설정, 초기 데이터 이관, 검증 방법은 [Archive Supabase 설정](docs/archive-supabase.md)을 참고하세요.
 
 ## 라우트 구조
@@ -38,7 +39,6 @@ One Page Portfolio + Archive Pages
 /archive            Archive 목록
 /archive/new        Archive 작성
 /archive/:id        Archive 상세
-/archive/:id/edit   Archive 수정 (관리자)
 ```
 
 ## 프로젝트 구조
