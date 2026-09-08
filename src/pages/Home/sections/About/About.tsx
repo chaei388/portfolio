@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom'
 import { aboutData } from '../../../../data/about'
 import emailIcon from '../../../../assets/icons/email.svg'
+import folderIcon from '../../../../assets/icons/folder.svg'
 import githubIcon from '../../../../assets/icons/github.svg'
 import styles from './About.module.css'
 
@@ -35,16 +37,33 @@ function About() {
           <div className={styles.profile}>
             <p className={styles.eyebrow}>About Me</p>
 
-            {/* 이름, 한 줄 소개, 자기소개 */}
-            <h1 id="about-title" className={styles.name}>
-              {aboutData.name}
-            </h1>
+            {/* 이름 + 아카이브 아이콘 */}
+            <div className={styles.nameRow}>
+              {/* 이름 */}
+              <h1 id="about-title" className={styles.name}>
+                {aboutData.name}
+              </h1>
+
+              {/* 폴더 아이콘 (아카이브 페이지 이동) */}
+              <Link
+                to="/archive"
+                className={styles.archiveLink}
+                aria-label="Archive 페이지로 이동"
+                title="Archive"
+              >
+                <img src={folderIcon} alt="" className={styles.archiveIcon} />
+              </Link>
+            </div>
+
+            {/* 한 줄 소개 (하이라이트X 영역과 O영역을 분리해서 css 적용) */}
             <p className={styles.tagline}>
               <span>{taglineBaseText}</span>
               <span className={styles.taglineHighlight}>
                 {taglineHighlightText}
               </span>
             </p>
+
+            {/* 세부 자기소개 */}
             <p className={styles.description}>{aboutData.description}</p>
 
             {/* Contact (깃허브, 이메일) */}
