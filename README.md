@@ -27,10 +27,11 @@ One Page Portfolio + Archive Pages
 
 ## Archive 설정
 
-- Home은 정적 데이터로 유지하며, Archive에만 Supabase Auth와 DB를 연결합니다.
-- 방문자는 공개 글과 답변을 조회하고, 등록된 관리자만 글과 답변을 관리합니다.
-- 글·답변은 작성과 삭제만 가능하며, 게시글의 해결 상태는 변경할 수 있습니다. 답변도 본문과 선택 코드로 저장합니다.
-- 환경변수, DB 초기 설정, 초기 데이터 이관, 검증 방법은 [Archive Supabase 설정](docs/archive-supabase.md)을 참고하세요.
+- Home은 정적 데이터로 유지, Archive에만 Supabase Auth와 DB 연결
+- 방문자는 공개 게시글/답변 조회
+- 등록된 관리자만 글과 답변을 관리 가능
+- 게시글·답변은 작성과 삭제만 가능(수정 불가), 게시글의 해결 상태는 변경 가능
+- 게시글과 답변의 내용에는 본문과 코드블록 두 종류로 작성 가능
 
 ## 라우트 구조
 
@@ -83,7 +84,6 @@ src/
 ├── pages/
 │   ├── Home/                               # 홈 섹션 조립
 │   │   ├── Home.tsx                        
-│   │   ├── Home.module.css
 │   │   └── sections/
 │   │       ├── About/                      # 자기소개
 │   │       │   ├── About.tsx               
@@ -120,9 +120,9 @@ src/
 │
 ├── data/                                   # 정적 데이터
 │   ├── about.ts                            # About - 프로필 데이터
-│   ├── archiveAnswers.ts                   # Archive - 초기 이관용 답변 원본
+│   ├── archiveAnswers.ts                   # Archive - 초기 답변 데이터
 │   ├── archiveLanguages.ts                 # Archive - 코드 언어 옵션
-│   ├── archivePosts.ts                     # Archive - 초기 이관용 게시글 원본
+│   ├── archivePosts.ts                     # Archive - 초기 게시글 데이터
 │   ├── skills.ts                           # Skills - 기술 스택 데이터
 │   ├── experience.ts                       # Experience - 경험 데이터
 │   ├── projects.ts                         # Projects - 프로젝트 데이터
@@ -152,4 +152,6 @@ src/
 ├── App.tsx                                 # 라우트 정의 및 스크롤 훅 연결
 ├── index.css                               # 전역 스타일
 └── main.tsx                                # React 진입점
+
+.env.example                            # Supabase 환경변수 예시
 ```
