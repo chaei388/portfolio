@@ -144,8 +144,15 @@ body::before {
 /* auroraBackground 애니메이션 설정
 body::before에 적용한 그라데이션 효과의 위치를 이동시키는 애니메이션 */
 @keyframes auroraBackground {
-  from { background-position: 0% 50%, 100% 50%; }
-  to { background-position: 100% 50%, 0% 50%; }
+  from {
+    /* 첫 번째 그라데이션은 왼쪽, 두 번째 그라데이션은 오른쪽에서 시작 */
+    background-position: 0% 50%, 100% 50%;
+  }
+
+  to {
+    /* 두 그라데이션의 위치를 서로 반대로 이동시켜 은은한 움직임 생성 */
+    background-position: 100% 50%, 0% 50%;
+  }
 }
 
 /* 움직임 줄이기를 선호하는 사용자 환경에서는 배경 애니메이션 정지 */
