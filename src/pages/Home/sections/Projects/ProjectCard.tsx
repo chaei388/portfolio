@@ -21,7 +21,18 @@ function ProjectCard({ project }: ProjectCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const screenshots = project.screenshotUrls ?? []
-  const thumbnailUrl = project.thumbnailUrl ?? screenshots[0] ?? '/favicon.svg'
+
+  // 대표 이미지가 등록되어 있으면 그 이미지를 사용하고,
+  // 대표 이미지가 없지만 상세 이미지가 있으면 첫 번째 상세 이미지를 대신 사용
+  const projectThumbnailUrl = project.thumbnailUrl ?? screenshots[0]
+
+  // 대표 이미지와 상세 이미지가 모두 없는 프로젝트에만 기본 파비콘 표시 (임시 이미지)
+  const thumbnailUrl = projectThumbnailUrl ?? '/favicon.svg'
+
+  // 실제 프로젝트 이미지와 기본 파비콘에 서로 다른 스타일을 적용하기 위한 값
+  // true: 카드의 이미지 영역을 실제 이미지로 채움
+  // false: 기본 파비콘을 여백과 함께 작게 표시
+  const hasProjectThumbnail = Boolean(projectThumbnailUrl)
   const hasScreenshots = screenshots.length > 0
   const hasReadme = Boolean(project.readmeMd?.trim())
 
@@ -66,7 +77,14 @@ function ProjectCard({ project }: ProjectCardProps) {
           <img
             src={thumbnailUrl}
             alt={`${project.title} 대표 이미지`}
-            className={cardStyles.thumbnail}
+            // 실제 이미지는 projectThumbnail, 기본 파비콘은 placeholderThumbnail을 적용
+            className={`${cardStyles.thumbnail} ${
+              hasProjectThumbnail
+                ? cardStyles.projectThumbnail
+                : cardStyles.placeholderThumbnail
+            }`}
+            loading="lazy" // 이미지 지연 로딩
+            decoding="async" // 이미지 디코딩을 비동기로 처리
           />
         </div>
 
@@ -183,6 +201,7 @@ function ProjectCard({ project }: ProjectCardProps) {
               src={screenshots[currentImageIndex]}
               alt={`${project.title} 스크린샷 ${currentImageIndex + 1}`}
               className={modalStyles.projectImage}
+              decoding="async" // 이미지 디코딩을 비동기로 처리
             />
 
             <p className={modalStyles.imageCount}>

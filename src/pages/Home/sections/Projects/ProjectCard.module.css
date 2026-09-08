@@ -23,7 +23,10 @@
   align-items: center; /* 세로축 가운데 정렬 */
   justify-content: center; /* 가로축 가운데 정렬 */
 
-  min-height: 12rem; /* 192px */
+  align-self: start; /* 이미지 영역을 카드 위쪽에 배치 */
+
+  width: 100%;
+  aspect-ratio: 1; /* 정사각형 유지 */
   overflow: hidden;
 
   background: var(--gray-100);
@@ -33,12 +36,20 @@
 /* 카드 왼쪽에 들어가는 대표 이미지 */
 .thumbnail {
   display: block;
-
   width: 100%;
   height: 100%;
-  max-height: 14rem; /* 224px */
+}
 
-  object-fit: contain;
+/* 실제 프로젝트 대표 이미지 */
+.projectThumbnail {
+  object-fit: cover; /* 비율을 유지하면서 정사각형 영역을 빈틈없이 채움 */
+}
+
+/* 임시 파비콘 이미지 (프로젝트 이미지가 없을 때 사용)
+최대 높이와 안쪽 여백으로 파비콘 크기를 제한 */
+.placeholderThumbnail {
+  max-height: 14rem; /* 224px */
+  object-fit: contain; /* 비율을 유지하면서 이미지를 모두 보여줌 */
   padding: 2rem; /* 32px */
 }
 
@@ -150,11 +161,8 @@
     gap: 1.5rem; /* 24px */
   }
 
-  .media {
-    min-height: 10rem; /* 160px */
-  }
-
-  .thumbnail {
+  /* 기본 파비콘의 최대 크기와 여백을 한 단계 줄임 */
+  .placeholderThumbnail {
     max-height: 12rem; /* 192px */
     padding: 1.5rem; /* 24px */
   }

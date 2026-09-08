@@ -1,9 +1,11 @@
 import type { Project } from '../types/project'
+import { projectMedia } from './projectMedia'
 
 // 프로젝트 카드 정적 데이터
 export const projects: Project[] = [
   {
     id: 'watermelon-ai-service',
+    ...projectMedia.watermelonAiService,
     title: '수박의정석',
     summary: '수박 구매 의사결정을 돕는 AI 이미지 분류 웹앱',
     period: '2026.06',
@@ -19,6 +21,7 @@ export const projects: Project[] = [
   },
   {
     id: 'capstone-webapp',
+    ...projectMedia.pickIt,
     title: 'Pick-it',
     summary: '프로젝트 팀원 모집과 관리 전반을 지원하는 웹앱',
     period: '2026.03 - 2026.06',
@@ -35,6 +38,7 @@ export const projects: Project[] = [
   },
   {
     id: 'introduction-app',
+    ...projectMedia.nugu,
     title: 'NUGU',
     summary: '1020세대를 위한 새로운 자기소개 애플리케이션',
     period: '2024.10 - 2024.11',
@@ -50,6 +54,7 @@ export const projects: Project[] = [
   },
   {
     id: 'software-contest-project',
+    ...projectMedia.campusConnect,
     title: 'Campus Connect',
     summary: '외국인 교환학생과 재학생을 연결하는 언어교환 애플리케이션',
     period: '2024.06 - 2024.09',
@@ -64,6 +69,7 @@ export const projects: Project[] = [
   },
   {
     id: 'cheers-tracker',
+    ...projectMedia.cheersTracker,
     title: 'CheersTracker',
     summary: '건강한 음주 습관 형성을 돕는 기록·관리 애플리케이션',
     period: '2024.07 - 2024.08',
@@ -78,6 +84,7 @@ export const projects: Project[] = [
   },
   {
     id: 'goal-grove',
+    ...projectMedia.goalGrove,
     title: 'GoalGrove',
     summary: 'MZ세대를 위한 목표 기반 건강관리 커뮤니티 웹',
     period: '2024.06 - 2024.07',
@@ -92,6 +99,7 @@ export const projects: Project[] = [
   },
   {
     id: 'albami',
+    ...projectMedia.albami,
     title: 'Albami',
     summary: '아르바이트 일정과 급여 관리를 돕는 웹',
     period: '2024.03 - 2024.06',
@@ -106,6 +114,7 @@ export const projects: Project[] = [
   },
   {
     id: 'cheery',
+    ...projectMedia.cheery,
     title: 'CHEERY',
     summary: '정신건강을 위한 번아웃 관리 애플리케이션',
     period: '2024.05',
