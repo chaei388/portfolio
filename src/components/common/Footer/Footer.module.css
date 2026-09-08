@@ -17,3 +17,10 @@
 .footer p + p {
   margin-top: 0.25rem; /* 4px */
 }
+
+/* 모바일: 화면 하단의 빈 공간을 줄임*/
+@media (max-width: 600px) {
+  .footer {
+    padding-bottom: 3rem; /* 48px */
+  }
+}

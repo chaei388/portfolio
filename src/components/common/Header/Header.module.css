@@ -45,3 +45,14 @@
   outline: 2px solid var(--blue-700);
   outline-offset: 0.25rem; /* 4px */
 }
+
+/* 태블릿 이하: 간격 축소 */
+@media (max-width: 900px) {
+  .inner {
+    gap: 1rem; /* 16px */
+  }
+
+  .logo {
+    flex-shrink: 0;
+  }
+}

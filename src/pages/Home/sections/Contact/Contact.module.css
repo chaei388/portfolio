@@ -48,3 +48,22 @@
 
   display: block;
 }
+
+/* 모바일: 간격 축소 */
+@media (max-width: 600px) {
+  .inner {
+    gap: 1rem; /* 16px */
+  }
+
+  .textLinks {
+    gap: 1.5rem; /* 24px */
+  }
+
+  .iconLinks {
+    gap: 1rem; /* 16px */
+  }
+
+  .textLink {
+    font: var(--font-body1);
+  }
+}

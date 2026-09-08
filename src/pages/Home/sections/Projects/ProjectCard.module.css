@@ -142,3 +142,43 @@
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
 }
+
+/* 태블릿 이하: 이미지와 본문 2열을 위아래 1열 카드로 변경 */
+@media (max-width: 768px) {
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem; /* 24px */
+  }
+
+  .media {
+    min-height: 10rem; /* 160px */
+  }
+
+  .thumbnail {
+    max-height: 12rem; /* 192px */
+    padding: 1.5rem; /* 24px */
+  }
+}
+
+/* 모바일: 여백, 간격 줄이고 자동 줄바꿈 */
+@media (max-width: 600px) {
+  .card {
+    gap: 1.25rem; /* 20px */
+    padding: 1rem; /* 16px */
+  }
+
+  .cardHeader {
+    flex-wrap: wrap;
+  }
+
+  .metaList {
+    flex-direction: column;
+    gap: 0.5rem; /* 8px */
+  }
+
+  .summary,
+  .metaList,
+  .featureList {
+    overflow-wrap: anywhere;
+  }
+}

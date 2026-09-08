@@ -41,3 +41,14 @@
 .markdown {
   font: var(--font-body2);
 }
+
+/* 모바일: 표시 영역 제한 */
+@media (max-width: 600px) {
+  .projectImage {
+    max-height: 60vh;
+  }
+
+  .markdown {
+    overflow-wrap: anywhere;
+  }
+}

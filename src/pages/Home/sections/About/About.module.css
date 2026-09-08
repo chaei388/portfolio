@@ -254,3 +254,59 @@
   font: var(--font-body3);
   color: var(--gray-500);
 }
+
+/* 태블릿 이하: About Me와 Education 2열을 위아래 1열 구조로 변경 */
+@media (max-width: 900px) {
+  .about {
+    align-items: flex-start;
+  }
+
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem; /* 48px */
+  }
+
+  .profile {
+    max-width: none;
+  }
+
+  .education {
+    padding-top: 2.5rem; /* 40px */
+    padding-left: 0;
+
+    border-top: 1px solid var(--gray-300);
+    border-left: 0;
+  }
+}
+
+/* 모바일: 제목, 카드 배치 축소 */
+@media (max-width: 600px) {
+  .nameRow {
+    gap: 1rem; /* 16px */
+  }
+
+  .name {
+    font: var(--font-h1);
+  }
+
+  .archiveIcon {
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+  }
+
+  .tagline {
+    font: var(--font-body1);
+  }
+
+  .linkList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .profileLink {
+    min-width: 0;
+  }
+
+  .linkText {
+    overflow-wrap: anywhere;
+  }
+}

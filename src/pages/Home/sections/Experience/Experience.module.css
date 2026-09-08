@@ -108,3 +108,26 @@
   font: var(--font-body2);
   color: var(--gray-700);
 }
+
+/* 모바일: 타임라인 장식이 차지하는 폭을 줄여 본문 공간 확보 */
+@media (max-width: 600px) {
+  .timeline {
+    margin-top: 2rem; /* 32px */
+  }
+
+  .timeline::before {
+    left: 0.625rem; /* 10px */
+  }
+
+  .item {
+    padding-left: 2.5rem; /* 40px */
+  }
+
+  .item::before {
+    left: 0.625rem; /* 10px */
+  }
+
+  .itemTitle {
+    font: var(--font-body1);
+  }
+}

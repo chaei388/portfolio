@@ -143,3 +143,15 @@
 .contactButton[data-active='email'] .activeLink .icon {
   filter: none;
 }
+
+/* 모바일: 버튼 너비와 하단 간격 축소 */
+@media (max-width: 600px) {
+  .contactButton {
+    bottom: 1rem; /* 16px */
+    grid-template-columns: repeat(2, 6rem); /* 96px */
+  }
+
+  .link {
+    padding: 0 0.5rem; /* 8px */
+  }
+}
