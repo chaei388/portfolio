@@ -25,13 +25,26 @@ One Page Portfolio + Archive Pages
 - Contact: Email, GitHub 등 외부 링크
 - Archive: Supabase 기반 문제 해결 기록과 답변 조회, 관리자 로그인 및 글/답변 관리
 
-## Archive 설정
+## Supabase 활용
 
-- Home은 정적 데이터로 유지, Archive에만 Supabase Auth와 DB 연결
-- 방문자는 공개 게시글/답변 조회
-- 등록된 관리자만 글과 답변을 관리 가능
-- 게시글·답변은 작성과 삭제만 가능(수정 불가), 게시글의 해결 상태는 변경 가능
-- 게시글과 답변의 내용에는 본문과 코드블록 두 종류로 작성 가능
+- Home은 정적 데이터로 구성하고, Archive에만 Supabase Authentication과 Database 적용
+- 환경변수의 프로젝트 URL과 Publishable Key를 사용해 Supabase Client 생성
+- `archiveApi.ts`에서 DB의 `snake_case` 데이터를 화면용 `camelCase` 데이터로 변환
+
+**Authentication 흐름**
+
+1. `ArchiveLayout`에서 Supabase 인증 상태 구독
+2. 이메일과 비밀번호를 이용한 관리자 로그인
+3. `is_archive_admin` RPC를 호출해 등록된 관리자 여부 확인
+4. 인증 상태와 로그인·로그아웃 함수를 Context로 Archive 하위 페이지에 공유
+
+**Archive 데이터 및 권한**
+
+- 방문자는 RLS 정책을 통과한 공개 게시글과 답변 조회 가능
+- 관리자는 본인 소유의 게시글·답변 작성 및 삭제, 게시글 해결 상태 변경 가능
+- 게시글과 답변은 일반 본문과 선택 코드 언어·코드를 별도 필드로 저장
+- 답변 저장과 해결완료 처리는 `save_archive_answer` RPC의 단일 트랜잭션으로 처리
+- 프론트엔드의 관리자 화면 제한과 별도로 Supabase RLS에서 실제 데이터 접근 권한 검증
 
 ## 라우트 구조
 
