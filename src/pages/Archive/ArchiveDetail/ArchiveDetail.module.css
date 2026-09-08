@@ -1,32 +1,54 @@
+/* 아카이브 게시글 상세페이지 전체: .detail */
 .detail {
   min-height: calc(100vh - var(--header-height));
 }
 
-.detail .statusButton:disabled { cursor: default; opacity: 1; }
-.statusButton:disabled:hover .statusIcon { transform: none; }
-.detail .answerSection { min-height: 0; padding: 0; }
-.detail .content { white-space: pre-wrap; overflow-wrap: anywhere; }
-.detail .postCard { margin-top: 1rem; }
-.markdownText { overflow-wrap: anywhere; }
-.markdownText pre { overflow-x: auto; padding: 1rem; margin: 1rem 0; border-radius: var(--radius-md); background: var(--gray-900); }
-.markdownText pre code { padding: 0; background: transparent; color: var(--gray-0); }
-.markdownText p + p { margin-top: 0.75rem; }
-.markdownText ul, .markdownText ol { padding-left: 1.5rem; list-style: revert; }
-.markdownText a { color: var(--blue-700); text-decoration: underline; }
-.markdownText table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
-.markdownText td, .markdownText th { padding: 0.5rem; border: 1px solid var(--gray-300); }
-.markdownText img { max-width: 100%; }
+/* disabled: 관리자가 아니거나, 본인이 쓴 글이 아닐 때 / Supabase 요청 처리 중일 때
+해결완료/미해결 아이콘이 흐려지지 않도록 유지 */
+.statusButton:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+/* disabled 상태에서는 hover해도 아이콘이 움직이지 않게 고정 */
+.statusButton:disabled:hover .statusIcon {
+  transform: none;
+}
+
+/* 전역 section 여백/높이를 덮어씌움 */
+.detail .answerSection {
+  min-height: 0;
+  padding: 0;
+}
+
+/* 모바일 반응형 레이아웃 (최소한으로...) */
 @media (max-width: 600px) {
-  .detail .postCard { padding: 1.25rem; }
-  .detail .statusButton { right: 1.25rem; }
-  .detail .answerHeader, .detail .postMeta { flex-wrap: wrap; }
+  .postCard {
+    padding: 1.25rem; /* 20px */
+  }
+
+  .statusButton {
+    right: 1.25rem; /* 20px */
+  }
+
+  .answerHeader,
+  .postMeta {
+    flex-wrap: wrap;
+  }
+}
+
+.detailActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 목록링크/삭제버튼 양끝 배치 */
+  gap: 1rem; /* 16px */
+
+  margin-bottom: 1.5rem; /* 24px */
 }
 
 .backLink {
   display: inline-flex; /* 텍스트 링크를 버튼처럼 다루기 위한 inline flex */
   align-items: center;
-
-  margin-bottom: 1.5rem; /* 24px */
 
   font: var(--font-body1);
   color: var(--gray-700);
@@ -53,8 +75,10 @@
 .postCard {
   position: relative; /* 상태 버튼을 카드 오른쪽 위에 배치하기 위한 기준 */
 
+  margin-top: 1rem; /* 16px */
   padding: 1.5rem 2rem; /* 24px 32px */
 
+  /* 반투명 배경 + blur + 약간 진한 테두리 */
   background: var(--background-card);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
@@ -127,6 +151,9 @@
 
   font: var(--font-body3);
   color: var(--gray-900);
+  white-space: pre-wrap; /* 작성한 줄바꿈과 공백을 유지하면서, 자동 줄바꿈도 허용 */
+  /* white-space: pre-wrap; 속성이 있어도, 공백이 전혀 없는 긴 문자열은 anywhere가 없으면 넘칠 수 있음 */
+  overflow-wrap: anywhere; /* 영역 넘치지 않게 자동 줄바꿈 */
 }
 
 .codeBlock {
@@ -151,7 +178,7 @@
 
   padding: 1.25rem; /* 20px */
 
-  font-family: Consolas, 'Courier New', monospace;
+  font-family: Consolas, 'Courier New', monospace; /* 코드 느낌 폰트 */
   font-size: 0.9375rem; /* 15px */
   font-weight: 500;
   line-height: 1.7;
@@ -209,17 +236,36 @@
 .codeFields {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.75rem; /* 12px */
+
   min-width: 0;
-  margin-top: 0.75rem;
+  margin-top: 0.75rem; /* 12px */
   padding: 0;
+
   border: 0;
 }
 
-.codeLegend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-.codeFields .languageDropdown { width: min(100%, 16rem); }
-.answerInput.codeInput { font-family: Consolas, 'Courier New', monospace; }
-.answerForm .saveButton { align-self: flex-end; }
+.codeLegend {
+  position: absolute; /* 화면에서는 숨기되 스크린리더에는 fieldset 제목으로 전달 */
+
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+
+  clip-path: inset(50%);
+}
+
+.codeFields .languageDropdown {
+  width: min(100%, 16rem); /* 최대 256px, 좁은 화면에서는 부모 너비에 맞춤 */
+}
+
+.answerInput.codeInput {
+  font-family: Consolas, 'Courier New', monospace; /* 코드 느낌 폰트 */
+}
+
+.answerForm .saveButton {
+  align-self: flex-end;
+}
 
 .answerInput {
   min-width: 0;
@@ -329,25 +375,14 @@
   color: var(--gray-900);
 }
 
-.markdownText {
-  font: var(--font-body3);
-  color: var(--gray-900);
+.answerText {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere; 
 }
 
-.markdownText + .markdownText,
-.markdownText + .codeBlock,
-.codeBlock + .markdownText,
+.answerText + .codeBlock,
 .codeBlock + .codeBlock {
   margin-top: 1.25rem; /* 20px */
-}
-
-.markdownText code {
-  padding: 0.125rem 0.375rem; /* 2px 6px */
-
-  font-family: Consolas, 'Courier New', monospace;
-  color: var(--gray-900);
-  background: var(--blue-50);
-  border-radius: var(--radius-sm);
 }
 
 .notFound {

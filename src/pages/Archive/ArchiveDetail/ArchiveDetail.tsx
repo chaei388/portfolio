@@ -1,6 +1,4 @@
 import { useCallback, useRef, useState, type FormEvent } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import ConfirmModal from '../../../components/common/ConfirmModal/ConfirmModal'
 import Dropdown from '../../../components/common/Dropdown/Dropdown'
@@ -162,13 +160,23 @@ function ArchiveDetailContent({ id }: { id: string }) {
     <>
       <section className={styles.detail}>
         <div className="container">
-          <Link to="/archive" className={styles.backLink}>
-            목록으로
-          </Link>
+          <div className={styles.detailActions}>
+            <Link to="/archive" className={styles.backLink}>
+              목록으로
+            </Link>
 
-          {canManage && <div className={common.actions}>
-            <button type="button" className={common.dangerButton} disabled={busy} onClick={() => setConfirmModalType('deletePost')}>글 삭제</button>
-          </div>}
+            {canManage && (
+              <button
+                type="button"
+                className={common.dangerButton}
+                disabled={busy}
+                onClick={() => setConfirmModalType('deletePost')}
+              >
+                글 삭제
+              </button>
+            )}
+          </div>
+
           {actionError && <p role="alert" className={common.error}>{actionError}</p>}
 
           <article className={styles.postCard}>
@@ -226,7 +234,7 @@ function ArchiveDetailContent({ id }: { id: string }) {
                 className={styles.answerInput}
                 value={answerInput}
                 onChange={(event) => setAnswerInput(event.target.value)}
-                placeholder="답변 본문을 작성해주세요. Markdown을 사용할 수 있습니다."
+                placeholder="답변 본문을 작성해주세요."
                 aria-label="답변 작성"
                 rows={3}
                 maxLength={50000}
@@ -281,9 +289,7 @@ function ArchiveDetailContent({ id }: { id: string }) {
                       </header>
 
                       <div className={styles.answerBody}>
-                        <div className={styles.markdownText}>
-                          <ReactMarkdown remarkPlugins={[remarkGfm]}>{answer.content}</ReactMarkdown>
-                        </div>
+                        <p className={styles.answerText}>{answer.content}</p>
                         {answer.codeText && <CodeBlock language={answer.language} codeText={answer.codeText} />}
                       </div>
                     </div>
