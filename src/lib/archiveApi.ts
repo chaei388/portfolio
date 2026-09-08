@@ -1,9 +1,10 @@
 import { getSupabase } from './supabaseClient'
-import type { Answer, AnswerBlock, CodeLanguage, Post, PostStatus } from '../types/archive'
+import type { Answer, CodeLanguage, Post, PostStatus } from '../types/archive'
 import type { AnswerRow, PostRow } from '../types/database'
 
 export type SavedPost = Post & { ownerId: string; isPublic: boolean }
 export type SavedAnswer = Answer & { ownerId: string }
+export type AnswerInput = Pick<Answer, 'content' | 'language' | 'codeText'>
 export interface PostInput {
   title: string
   content: string
@@ -25,7 +26,8 @@ const toPost = (row: PostRow, answerCount: number): SavedPost => ({
 
 const toAnswer = (row: AnswerRow): SavedAnswer => ({
   id: row.id, postId: row.post_id, ownerId: row.owner_id,
-  blocks: row.blocks, createdAt: formatDate(row.created_at),
+  content: row.content, language: row.language, codeText: row.code_text,
+  createdAt: formatDate(row.created_at),
 })
 
 export async function listPosts(signal: AbortSignal) {
@@ -71,9 +73,10 @@ export async function deletePost(id: string) {
   if (error) throw error
 }
 
-export async function saveAnswer(postId: string, blocks: AnswerBlock[], markSolved: boolean) {
+export async function saveAnswer(postId: string, input: AnswerInput, markSolved: boolean) {
   const { data, error } = await getSupabase().rpc('save_archive_answer', {
-    p_post_id: postId, p_blocks: blocks, p_mark_solved: markSolved,
+    p_post_id: postId, p_content: input.content, p_language: input.language,
+    p_code_text: input.codeText, p_mark_solved: markSolved,
   }).single()
   if (error) throw error
   return toAnswer(data)

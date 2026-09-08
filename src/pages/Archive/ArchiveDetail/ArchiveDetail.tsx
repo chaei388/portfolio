@@ -3,13 +3,14 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import ConfirmModal from '../../../components/common/ConfirmModal/ConfirmModal'
+import Dropdown from '../../../components/common/Dropdown/Dropdown'
 import { codeLanguageOptions } from '../../../data/archiveLanguages'
 import { archiveError, deleteAnswer, deletePost, getPost, saveAnswer as insertAnswer, setPostStatus } from '../../../lib/archiveApi'
+import type { AnswerInput } from '../../../lib/archiveApi'
 import { useArchiveQuery } from '../../../hooks/useArchiveQuery'
 import { useArchiveAuth } from '../useArchiveAuth'
 import common from '../ArchiveCommon.module.css'
 import type {
-  AnswerBlock,
   CodeLanguage,
   PostStatus,
 } from '../../../types/archive'
@@ -49,18 +50,6 @@ function CodeBlock({ language, codeText }: CodeBlockProps) {
   )
 }
 
-function AnswerBlock({ block }: { block: AnswerBlock }) {
-  if (block.type === 'code') {
-    return <CodeBlock language={block.language} codeText={block.codeText} />
-  }
-
-  return (
-    <div className={styles.markdownText}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{block.text}</ReactMarkdown>
-    </div>
-  )
-}
-
 function ArchiveDetail() {
   const { id } = useParams()
   const { user } = useArchiveAuth()
@@ -76,7 +65,9 @@ function ArchiveDetailContent({ id }: { id: string }) {
   const [confirmModalType, setConfirmModalType] =
     useState<ConfirmModalType>(null)
   const [answerInput, setAnswerInput] = useState('')
-  const [pendingAnswer, setPendingAnswer] = useState('')
+  const [answerLanguage, setAnswerLanguage] = useState<CodeLanguage | ''>('')
+  const [answerCode, setAnswerCode] = useState('')
+  const [pendingAnswer, setPendingAnswer] = useState<AnswerInput | null>(null)
   const [targetAnswerId, setTargetAnswerId] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const busyRef = useRef(false)
@@ -134,15 +125,18 @@ function ArchiveDetailContent({ id }: { id: string }) {
   }
 
   const saveAnswer = (shouldMarkSolved: boolean) => {
-    void runMutation(() => insertAnswer(post.id, [{ type: 'paragraph', text: pendingAnswer }], shouldMarkSolved), () => {
+    if (!pendingAnswer) return
+    void runMutation(() => insertAnswer(post.id, pendingAnswer, shouldMarkSolved), () => {
       setAnswerInput('')
-      setPendingAnswer('')
+      setAnswerLanguage('')
+      setAnswerCode('')
+      setPendingAnswer(null)
     })
   }
 
   const closeAnswerConfirmModal = () => {
     if (busyRef.current) return
-    setPendingAnswer('')
+    setPendingAnswer(null)
     setConfirmModalType(null)
   }
 
@@ -156,7 +150,11 @@ function ArchiveDetailContent({ id }: { id: string }) {
     }
 
     // 저장 전 해결완료 처리 여부를 사용자가 직접 선택
-    setPendingAnswer(trimmedAnswer)
+    setPendingAnswer({
+      content: trimmedAnswer,
+      language: answerCode.trim() ? answerLanguage || null : null,
+      codeText: answerCode.trim() || null,
+    })
     setConfirmModalType('answer')
   }
 
@@ -228,13 +226,36 @@ function ArchiveDetailContent({ id }: { id: string }) {
                 className={styles.answerInput}
                 value={answerInput}
                 onChange={(event) => setAnswerInput(event.target.value)}
-                placeholder="답변을 작성해주세요. Markdown과 코드블록을 사용할 수 있습니다."
+                placeholder="답변 본문을 작성해주세요. Markdown을 사용할 수 있습니다."
                 aria-label="답변 작성"
                 rows={3}
                 maxLength={50000}
                 required
                 disabled={busy}
               />
+              <details className={styles.optionalCode}>
+                <summary>코드 추가 (선택)</summary>
+                <fieldset className={styles.codeFields} disabled={busy}>
+                  <legend className={styles.codeLegend}>답변 코드</legend>
+                  <Dropdown
+                    className={styles.languageDropdown}
+                    value={answerLanguage}
+                    options={codeLanguageOptions}
+                    placeholder="언어 선택 (선택)"
+                    onChange={(value) => setAnswerLanguage(value as CodeLanguage | '')}
+                  />
+                  <textarea
+                    className={`${styles.answerInput} ${styles.codeInput}`}
+                    value={answerCode}
+                    onChange={(event) => setAnswerCode(event.target.value)}
+                    placeholder="코드를 입력해주세요."
+                    aria-label="답변 코드 (선택)"
+                    rows={6}
+                    maxLength={50000}
+                    spellCheck={false}
+                  />
+                </fieldset>
+              </details>
               <button type="submit" className={styles.saveButton} disabled={busy || !answerInput.trim()}>
                 {busy ? '저장 중…' : '저장'}
               </button>
@@ -260,12 +281,10 @@ function ArchiveDetailContent({ id }: { id: string }) {
                       </header>
 
                       <div className={styles.answerBody}>
-                        {answer.blocks.map((block, index) => (
-                          <AnswerBlock
-                            key={`${answer.id}-${index}`}
-                            block={block}
-                          />
-                        ))}
+                        <div className={styles.markdownText}>
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>{answer.content}</ReactMarkdown>
+                        </div>
+                        {answer.codeText && <CodeBlock language={answer.language} codeText={answer.codeText} />}
                       </div>
                     </div>
                   </article>
