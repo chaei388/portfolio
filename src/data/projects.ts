@@ -1,6 +1,10 @@
 import type { Project } from '../types/project'
 import { projectMedia } from './projectMedia'
 
+// ?raw: 파일을 URL이나 모듈이 아닌 원본 문자열로 가져오라는 Vite 옵션
+import pickItReadme from '../assets/readmes/pick-it.md?raw'
+import watermelonReadme from '../assets/readmes/watermelon-ai-service.md?raw'
+
 // 프로젝트 카드 정적 데이터
 export const projects: Project[] = [
   {
@@ -11,6 +15,8 @@ export const projects: Project[] = [
     period: '2026.06',
     role: '기획/디자인, 서비스 구축/배포, AI 모델 구축 및 연동',
     stacks: ['Python', 'Streamlit', 'Azure Custom Vision'],
+    githubUrl: 'https://github.com/sesac-team6/watermelon-fe',
+    readmeMd: watermelonReadme,
     features: [
       '사용자가 수박 이미지를 업로드하면 AI 분석 결과를 확인할 수 있는 서비스 흐름 구현',
       'Streamlit 기반 화면 구성과 배포를 맡아 모델 결과를 실제 서비스로 연결',
@@ -27,6 +33,8 @@ export const projects: Project[] = [
     period: '2026.03 - 2026.06',
     role: '팀장, 기획/디자인, 프론트엔드',
     stacks: ['React', 'JavaScript', 'SCSS'],
+    githubUrl: 'https://github.com/capstone-pick-it/Frontend',
+    readmeMd: pickItReadme,
     features: [
       '마이페이지와 팀원 모집 페이지의 화면 구현 및 API 연동 담당',
       '검색어, 정렬, 성향 조건을 서버에 전달하는 목록 조회 흐름 구현',
@@ -60,6 +68,7 @@ export const projects: Project[] = [
     period: '2024.06 - 2024.09',
     role: '팀장, 기획/디자인, 프론트엔드',
     stacks: ['JavaScript', 'React Native', 'Expo'],
+    githubUrl: 'https://github.com/Campus-Connect-Front/Campus_Connect',
     features: [
       '교내 외국인 교환학생 증가에 맞춰 재학생과의 언어교환 연결 문제를 서비스 주제로 설정',
       '팀장으로 기능 제안, 프로토타입 제작, 발표자료 구성까지 프로젝트 흐름 주도',
