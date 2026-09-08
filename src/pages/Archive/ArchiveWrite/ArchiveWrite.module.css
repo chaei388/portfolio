@@ -3,9 +3,17 @@
 }
 
 @media (max-width: 600px) {
-  .write .form { padding: 1.25rem; }
-  .write .codeLabelRow { flex-wrap: wrap; }
-  .write .languageDropdown { width: 100%; }
+  .write .form {
+    padding: 1.25rem; /* 20px */
+  }
+
+  .write .codeLabelRow {
+    flex-wrap: wrap; /* 좁은 화면에서 코드 라벨과 드롭다운이 줄바꿈되도록 허용 */
+  }
+
+  .write .languageDropdown {
+    width: 100%; /* 줄바꿈된 드롭다운은 부모 너비를 모두 사용 */
+  }
 }
 
 .title {
@@ -76,7 +84,7 @@
 .codeTextarea {
   min-height: 14rem; /* 224px */
 
-  font-family: Consolas, 'Courier New', monospace;
+  font-family: Consolas, 'Courier New', monospace;  /* 코드 느낌 폰트 */
   line-height: 1.7;
 }
 

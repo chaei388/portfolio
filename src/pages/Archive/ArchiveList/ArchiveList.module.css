@@ -2,11 +2,24 @@
   min-height: calc(100vh - var(--header-height));
 }
 
-.archive .statusButton:disabled { opacity: 1; cursor: default; }
-.statusButton:disabled:hover .statusIcon { transform: none; }
+/* disabled: 관리자가 아니거나, 본인이 쓴 글이 아닐 때 / Supabase 요청 처리 중일 때
+해결완료/미해결 아이콘이 흐려지지 않도록 유지 */
+.archive .statusButton:disabled {
+  cursor: default;
+  opacity: 1;
+}
 
+/* disabled 상태에서는 hover해도 아이콘 위치가 움직이지 않게 고정 */
+.statusButton:disabled:hover .statusIcon {
+  transform: none;
+}
+
+/* 모바일 반응형 레이아웃 (최소한으로...) */
 @media (max-width: 600px) {
-  .toolbar { flex-wrap: wrap; gap: 1rem; }
+  .toolbar {
+    flex-wrap: wrap;
+    gap: 1rem; /* 16px */
+  }
 }
 
 .title {
