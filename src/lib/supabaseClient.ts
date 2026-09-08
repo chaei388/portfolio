@@ -22,9 +22,9 @@ export function getSupabase() {
 
   client = createClient<Database>(url, key, {
     auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: false,
+      persistSession: true, // 새로고침해도 로그인 유지
+      autoRefreshToken: true, // 로그인 토큰 만료 전에 자동 갱신
+      detectSessionInUrl: false, // 이메일 인증 링크를 사용X, URL에서 세션 찾지 않음
     },
   })
 
