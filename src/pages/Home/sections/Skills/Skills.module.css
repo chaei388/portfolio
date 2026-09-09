@@ -1,7 +1,10 @@
+/* Skills 섹션의 h2 제목 */
 .title {
   font: var(--font-h1);
 }
 
+
+/* Language~Tools 카테고리 그룹을 12열 Grid에 배치하는 부모 div 영역 */
 .groupList {
   display: grid; /* 카테고리 묶음을 행/열 기준으로 배치 (위치 잡는 용도) */
   grid-template-columns: repeat(12, 1fr); /* 12칸, 가로폭 12등분 */
@@ -10,53 +13,67 @@
   margin-top: 3rem; /* 48px */
 }
 
+/* 카테고리명 + 해당 스킬 목록 영역 */
 .group {
   display: flex;
   flex-direction: column; /* 카테고리명 아래에 스킬 카드 목록 배치 */
   gap: 1rem; /* 16px */
 }
 
-/* Language */
+/* 명시적으로 행을 grid-row로 지정하지 않고 CSS Grid의 자동 행 배치를 이용
+최대 콘텐츠 너비 1200px,  Grid 열 사이 간격 24px  →  Grid 한 칸: 936px ÷ 12 = 약 78px
+스킬카드는 7.25rem(116px)이므로 맞춰서 칸 부여*/
+
+/* 첫 번째 카테고리: Language
+필요영역 628px → 7칸 (약 690px) */
 .group:nth-child(1) {
   grid-column: 1 / span 7;
 }
 
-/* Frontend */
+/* 두 번째 카테고리: Frontend
+필요영역 756px → 8칸 (약 792px) */
 .group:nth-child(2) {
   grid-column: 1 / span 8;
 }
 
-/* Backend */
+/* 세 번째 카테고리: Backend
+필요영역 244px → 4칸 (약 384px) */
 .group:nth-child(3) {
   grid-column: 1 / span 4;
 }
 
-/* Database */
+/* 네 번째 카테고리: Database
+필요영역 244px → 4칸 (약 384px) */
 .group:nth-child(4) {
   grid-column: 5 / span 4;
 }
 
-/* DevOps */
+/* 다섯 번째 카테고리: DevOps
+한 행 전체 12칸 (1200px) */
 .group:nth-child(5) {
   grid-column: 1 / span 12;
 }
 
-/* Tools */
+/* 여섯 번째 카테고리: Tools
+한 행 전체 12칸 (1200px) */
 .group:nth-child(6) {
   grid-column: 1 / span 12;
 }
 
+/* 각 카테고리의 h3 제목 */
 .groupTitle {
   font: var(--font-h2);
   color: var(--blue-900);
 }
 
+/* 현재 카테고리에 속한 스킬 카드들 */
 .skillList {
   display: flex;
   flex-wrap: wrap; /* 스킬 카드가 많으면 다음 줄로 자연스럽게 내려감 */
   gap: 0.75rem; /* 12px */
 }
 
+/* 스킬 아이콘 + 이름 */
 .skillItem {
   /* 스택 하나당 하나의 카드 + 카드 크기 고정 */
   width: 7.25rem; /* 116px */
@@ -78,6 +95,7 @@
   backdrop-filter: blur(1rem);
 }
 
+/* 개별 스킬 카드 - 아이콘 이미지 */
 .skillIcon {
   width: 3rem; /* 48px */
   height: 3rem; /* 48px */
@@ -86,6 +104,7 @@
   display: block;
 }
 
+/* 개별 스킬 카드 - 기술명 */
 .skillName {
   font: var(--font-small);
   color: var(--blue-900);
@@ -94,17 +113,20 @@
 
 /* 태블릿 이하: 긴 카테고리는 전체 너비, Backend와 Database는 2열로 배치 */
 @media (max-width: 900px) {
+  /* Language, Frontend, DevOps, Tools 카테고리의 전체 너비 배치 */
   .group:nth-child(1),
   .group:nth-child(2),
   .group:nth-child(5),
   .group:nth-child(6) {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1; /* 가로 전체 너비 사용 */
   }
 
+  /* Backend 카테고리의 왼쪽 절반 배치 */
   .group:nth-child(3) {
     grid-column: 1 / span 6;
   }
 
+  /* Database 카테고리의 오른쪽 절반 배치 */
   .group:nth-child(4) {
     grid-column: 7 / span 6;
   }
@@ -112,24 +134,29 @@
 
 /* 모바일: 모든 카테고리를 1열로 쌓고 스킬 카드는 같은 크기의 격자로 배치 */
 @media (max-width: 600px) {
+  /* 모바일에서 바깥 카테고리 목록의 간격 조정 */
   .groupList {
     gap: 2rem; /* 32px */
     margin-top: 2rem; /* 32px */
   }
 
+  /* 모든 스킬 카테고리를 한 행의 전체 너비로 배치 */
   .group:nth-child(n) {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1; /* 가로 전체 너비 사용 */
   }
 
+  /* 모바일에서 카테고리 제목 크기 축소 */
   .groupTitle {
     font: var(--font-h3);
   }
 
+  /* 모바일에서 개별 스킬 카드를 2열 Grid로 배치 */
   .skillList {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Grid 영역을 같은 너비의 2개 열로 나눔 */
   }
 
+  /* Grid 한 칸을 채우는 정사각형 스킬 카드 */
   .skillItem {
     width: 100%;
     height: auto;
