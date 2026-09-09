@@ -24,16 +24,14 @@
 최대 콘텐츠 너비 1200px,  Grid 열 사이 간격 24px  →  Grid 한 칸: 936px ÷ 12 = 약 78px
 스킬카드는 7.25rem(116px)이므로 맞춰서 칸 부여*/
 
-/* 첫 번째 카테고리: Language
-필요영역 628px → 7칸 (약 690px) */
+/* 첫 번째 카테고리: Language */
 .group:nth-child(1) {
-  grid-column: 1 / span 7;
+  grid-column: 1 / -1; /* 가로 전체 너비 사용 */
 }
 
-/* 두 번째 카테고리: Frontend
-필요영역 756px → 8칸 (약 792px) */
+/* 두 번째 카테고리: Frontend */
 .group:nth-child(2) {
-  grid-column: 1 / span 8;
+    grid-column: 1 / -1; /* 가로 전체 너비 사용 */
 }
 
 /* 세 번째 카테고리: Backend
@@ -48,16 +46,14 @@
   grid-column: 5 / span 4;
 }
 
-/* 다섯 번째 카테고리: DevOps
-한 행 전체 12칸 (1200px) */
+/* 다섯 번째 카테고리: DevOps */
 .group:nth-child(5) {
-  grid-column: 1 / span 12;
+    grid-column: 1 / -1; /* 가로 전체 너비 사용 */
 }
 
-/* 여섯 번째 카테고리: Tools
-한 행 전체 12칸 (1200px) */
+/* 여섯 번째 카테고리: Tools */
 .group:nth-child(6) {
-  grid-column: 1 / span 12;
+    grid-column: 1 / -1; /* 가로 전체 너비 사용 */
 }
 
 /* 각 카테고리의 h3 제목 */
